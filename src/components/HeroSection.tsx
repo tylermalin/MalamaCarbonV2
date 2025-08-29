@@ -1,7 +1,7 @@
 import { motion } from 'motion/react';
 import { Button } from './ui/button';
 import { ImageWithFallback } from './figma/ImageWithFallback';
-import malamaLogo from 'figma:asset/37a47935d44775c05b14ffaa2c0ff28eb3dc4288.png';
+
 
 interface HeroSectionProps {
   onExplorePlatform?: () => void;
@@ -33,7 +33,7 @@ export function HeroSection({ onExplorePlatform, onHowItWorks }: HeroSectionProp
         transition={{ duration: 1, delay: 0.1 }}
       >
         <img 
-          src={malamaLogo} 
+          src="/src/assets/37a47935d44775c05b14ffaa2c0ff28eb3dc4288.png" 
           alt="Mālama Labs" 
           className="h-24 md:h-[calc(var(--spacing)*90)] lg:h-[calc(var(--spacing)*90)] xl:h-48 w-auto object-contain hover:scale-105 transition-transform duration-300"
         />
