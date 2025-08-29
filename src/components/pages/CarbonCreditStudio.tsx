@@ -394,16 +394,15 @@ export function CarbonCreditStudio({
             {pricingTiers.map((tier, index) => (
               <div key={tier.name}>
                 <Card className="h-full">
-                  <CardContent className="p-8 relative">
-                    {tier.popular && (
-                      <div className="absolute -top-6 left-1/2 transform -translate-x-1/2">
-                        <div className="px-4 py-1 rounded-full text-sm font-medium">
-                          Most Popular
-                        </div>
-                      </div>
-                    )}
-                    
+                  <CardContent className="p-8">
                     <div className="text-center mb-6">
+                      {tier.popular && (
+                        <div className="mb-4">
+                          <div className="px-4 py-1 rounded-full text-sm font-medium">
+                            Most Popular
+                          </div>
+                        </div>
+                      )}
                       <h3 className="text-2xl font-bold mb-2">{tier.name}</h3>
                       <div className="text-4xl font-bold mb-2">{tier.price}</div>
                       <div className="text-sm">of credit value</div>
