@@ -548,6 +548,7 @@ export default function App() {
           onNavigateToHome={handleNavigateToHome}
           onNavigateToFAQ={() => setCurrentPage('faq')}
           onNavigateToCareers={() => setCurrentPage('careers')}
+          onNavigateToAbout={() => setCurrentPage('about')}
         />
         </>
       )}

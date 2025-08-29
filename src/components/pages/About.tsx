@@ -52,6 +52,7 @@ interface AboutProps {
   onNavigateToHome?: () => void;
   onNavigateToFAQ?: () => void;
   onNavigateToCareers?: () => void;
+  onNavigateToAbout?: () => void;
 }
 
 const companyValues = [
@@ -142,7 +143,8 @@ export default function About({
   onStartProject,
   onNavigateToHome,
   onNavigateToFAQ,
-  onNavigateToCareers
+  onNavigateToCareers,
+  onNavigateToAbout
 }: AboutProps) {
   return (
     <div className="min-h-screen bg-background">
@@ -168,7 +170,6 @@ export default function About({
         onStartProject={onStartProject || (() => {})}
         onSignIn={() => {}}
         onRegister={() => {}}
-        showBackToHome={true}
         onNavigateToHome={onNavigateToHome}
       />
 
@@ -518,6 +519,7 @@ export default function About({
         onNavigateToHome={onNavigateToHome}
         onNavigateToFAQ={onNavigateToFAQ}
         onNavigateToCareers={onNavigateToCareers}
+        onNavigateToAbout={onNavigateToAbout}
       />
     </div>
   );
