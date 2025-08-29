@@ -51,6 +51,9 @@ interface CareersProps {
   onNavigateToDMRVEngine?: () => void;
   onStartProject?: () => void;
   onNavigateToHome?: () => void;
+  onNavigateToFAQ?: () => void;
+  onNavigateToCareers?: () => void;
+  onNavigateToAbout?: () => void;
 }
 
 interface JobPosition {
@@ -692,6 +695,9 @@ export default function Careers({
         onNavigateToDMRVEngine={onNavigateToDMRVEngine}
         onStartProject={onStartProject}
         onNavigateToHome={onNavigateToHome}
+        onNavigateToFAQ={onNavigateToFAQ}
+        onNavigateToCareers={onNavigateToCareers}
+        onNavigateToAbout={onNavigateToAbout}
       />
     </div>
   );

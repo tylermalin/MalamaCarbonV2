@@ -48,6 +48,9 @@ interface DMRVEngineProps {
   onNavigateToDMRVEngine?: () => void;
   onStartProject?: () => void;
   onNavigateToHome?: () => void;
+  onNavigateToFAQ?: () => void;
+  onNavigateToCareers?: () => void;
+  onNavigateToAbout?: () => void;
 }
 
 const dMRVFeatures = [
@@ -137,7 +140,10 @@ export default function DMRVEngine({
   onNavigateToCarbonCreditProtocols,
   onNavigateToDMRVEngine,
   onStartProject,
-  onNavigateToHome
+  onNavigateToHome,
+  onNavigateToFAQ,
+  onNavigateToCareers,
+  onNavigateToAbout
 }: DMRVEngineProps) {
   return (
     <div className="min-h-screen bg-background">
@@ -163,7 +169,6 @@ export default function DMRVEngine({
         onStartProject={onStartProject || (() => {})}
         onSignIn={() => {}}
         onRegister={() => {}}
-        showBackToHome={true}
         onNavigateToHome={onNavigateToHome}
       />
 
@@ -436,6 +441,9 @@ export default function DMRVEngine({
         onNavigateToDMRVEngine={onNavigateToDMRVEngine}
         onStartProject={onStartProject}
         onNavigateToHome={onNavigateToHome}
+        onNavigateToFAQ={onNavigateToFAQ}
+        onNavigateToCareers={onNavigateToCareers}
+        onNavigateToAbout={onNavigateToAbout}
       />
     </div>
   );
