@@ -280,7 +280,8 @@ export function CTASection({
 // Process Steps Component
 export function ProcessSteps({ 
   steps, 
-  className = "" 
+  className = "",
+  isHorizontal = false
 }: {
   steps: Array<{
     icon: React.ElementType;
@@ -291,7 +292,57 @@ export function ProcessSteps({
     timeframe: string;
   }>;
   className?: string;
+  isHorizontal?: boolean;
 }) {
+  if (isHorizontal) {
+    return (
+      <div className={`grid grid-cols-5 gap-4 ${className}`}>
+        {steps.map((step, index) => (
+          <motion.div
+            key={step.title}
+            initial={{ opacity: 0, y: 50 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: index * 0.1 }}
+            viewport={{ once: true }}
+            className="relative text-center"
+          >
+            {/* Step Number */}
+            <div className="absolute -top-2 left-1/2 transform -translate-x-1/2 w-8 h-8 bg-primary text-primary-foreground rounded-full flex items-center justify-center text-sm font-medium z-10">
+              {step.step}
+            </div>
+            
+            {/* Icon Circle */}
+            <div className="w-16 h-16 bg-background border-4 border-primary rounded-full flex items-center justify-center mx-auto mb-4 shadow-lg hover:shadow-xl transition-shadow duration-300">
+              <step.icon className="w-6 h-6 text-primary" />
+            </div>
+            
+            <h3 className="text-sm mb-2 text-primary font-semibold">
+              {step.title}
+            </h3>
+            
+            <p className="text-xs text-muted-foreground mb-2">
+              {step.description}
+            </p>
+            
+            {step.details && (
+              <div className="mt-3 space-y-1">
+                {step.details.map((detail, detailIndex) => (
+                  <div key={detailIndex} className="text-xs text-muted-foreground bg-muted/50 px-2 py-1 rounded">
+                    {detail}
+                  </div>
+                ))}
+              </div>
+            )}
+            
+            <div className="text-xs text-primary font-medium mt-2">
+              {step.timeframe}
+            </div>
+          </motion.div>
+        ))}
+      </div>
+    );
+  }
+
   return (
     <div className={`space-y-16 ${className}`}>
       {steps.map((step, index) => (

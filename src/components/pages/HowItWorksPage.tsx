@@ -232,11 +232,9 @@ export function HowItWorksPage({
         <div className="hidden lg:block mb-16">
           <div className="relative">
             {/* Connection Line */}
-            <div className="absolute top-20 left-0 right-0 h-0.5 bg-gradient-to-r from-primary via-secondary to-primary opacity-30"></div>
+            <div className="absolute top-12 left-0 right-0 h-0.5 bg-gradient-to-r from-primary via-secondary to-primary opacity-30"></div>
             
-            <div className="grid grid-cols-5 gap-8">
-              <ProcessSteps steps={steps} />
-            </div>
+            <ProcessSteps steps={steps} isHorizontal={true} />
           </div>
         </div>
 
