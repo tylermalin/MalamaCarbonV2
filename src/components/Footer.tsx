@@ -193,7 +193,7 @@ export function Footer({
               <ul className="space-y-3">
                 <li>
                   <button
-                    onClick={() => onNavigateToHome()}
+                    onClick={() => onNavigateToHome?.()}
                     className="text-primary-foreground/70 hover:text-white transition-colors duration-200 text-sm"
                   >
                     Platform Overview
@@ -201,7 +201,7 @@ export function Footer({
                 </li>
                 <li>
                   <button
-                    onClick={() => onNavigateToCarbonCreditStudio()}
+                    onClick={() => onNavigateToCarbonCreditStudio?.()}
                     className="text-primary-foreground/70 hover:text-white transition-colors duration-200 text-sm"
                   >
                     Carbon Credit Studio
@@ -209,7 +209,7 @@ export function Footer({
                 </li>
                 <li>
                   <button
-                    onClick={() => onNavigateToCarbonCreditProtocols()}
+                    onClick={() => onNavigateToCarbonCreditProtocols?.()}
                     className="text-primary-foreground/70 hover:text-white transition-colors duration-200 text-sm"
                   >
                     Carbon Protocols
@@ -217,7 +217,7 @@ export function Footer({
                 </li>
                 <li>
                   <button
-                    onClick={() => onNavigateToDMRVEngine()}
+                    onClick={() => onNavigateToDMRVEngine?.()}
                     className="text-primary-foreground/70 hover:text-white transition-colors duration-200 text-sm"
                   >
                     dMRV Engine
@@ -232,7 +232,7 @@ export function Footer({
               <ul className="space-y-3">
                 <li>
                   <button
-                    onClick={() => onHowItWorks()}
+                    onClick={() => onHowItWorks?.()}
                     className="text-primary-foreground/70 hover:text-white transition-colors duration-200 text-sm"
                   >
                     How It Works
@@ -240,7 +240,7 @@ export function Footer({
                 </li>
                 <li>
                   <button
-                    onClick={() => onNavigateToDocumentation()}
+                    onClick={() => onNavigateToDocumentation?.()}
                     className="text-primary-foreground/70 hover:text-white transition-colors duration-200 text-sm"
                   >
                     Documentation
@@ -248,7 +248,7 @@ export function Footer({
                 </li>
                 <li>
                   <button
-                    onClick={() => onNavigateToBlog()}
+                    onClick={() => onNavigateToBlog?.()}
                     className="text-primary-foreground/70 hover:text-white transition-colors duration-200 text-sm"
                   >
                     Blog
@@ -256,7 +256,7 @@ export function Footer({
                 </li>
                 <li>
                   <button
-                    onClick={() => onNavigateToFAQ()}
+                    onClick={() => onNavigateToFAQ?.()}
                     className="text-primary-foreground/70 hover:text-white transition-colors duration-200 text-sm"
                   >
                     FAQ
@@ -271,7 +271,7 @@ export function Footer({
               <ul className="space-y-3">
                 <li>
                   <button
-                    onClick={() => onNavigateToHome()}
+                    onClick={() => onNavigateToHome?.()}
                     className="text-primary-foreground/70 hover:text-white transition-colors duration-200 text-sm"
                   >
                     About
@@ -279,7 +279,7 @@ export function Footer({
                 </li>
                 <li>
                   <button
-                    onClick={() => onNavigateToTeam()}
+                    onClick={() => onNavigateToTeam?.()}
                     className="text-primary-foreground/70 hover:text-white transition-colors duration-200 text-sm"
                   >
                     Our Team
@@ -287,7 +287,7 @@ export function Footer({
                 </li>
                 <li>
                   <button
-                    onClick={() => onNavigateToContact()}
+                    onClick={() => onNavigateToContact?.()}
                     className="text-primary-foreground/70 hover:text-white transition-colors duration-200 text-sm"
                   >
                     Contact
@@ -295,7 +295,7 @@ export function Footer({
                 </li>
                 <li>
                   <button
-                    onClick={() => onNavigateToCareers()}
+                    onClick={() => onNavigateToCareers?.()}
                     className="text-primary-foreground/70 hover:text-white transition-colors duration-200 text-sm"
                   >
                     Careers
@@ -310,7 +310,7 @@ export function Footer({
               <ul className="space-y-3">
                 <li>
                   <button
-                    onClick={() => onNavigateToPrivacy()}
+                    onClick={() => onNavigateToPrivacy?.()}
                     className="text-primary-foreground/70 hover:text-white transition-colors duration-200 text-sm"
                   >
                     Privacy Policy
@@ -318,7 +318,7 @@ export function Footer({
                 </li>
                 <li>
                   <button
-                    onClick={() => onNavigateToTerms()}
+                    onClick={() => onNavigateToTerms?.()}
                     className="text-primary-foreground/70 hover:text-white transition-colors duration-200 text-sm"
                   >
                     Terms of Service
@@ -326,7 +326,7 @@ export function Footer({
                 </li>
                 <li>
                   <button
-                    onClick={() => onNavigateToCookies()}
+                    onClick={() => onNavigateToCookies?.()}
                     className="text-primary-foreground/70 hover:text-white transition-colors duration-200 text-sm"
                   >
                     Cookie Policy
