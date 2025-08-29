@@ -52,6 +52,9 @@ interface ContactProps {
   onNavigateToDMRVEngine?: () => void;
   onStartProject?: () => void;
   onNavigateToHome?: () => void;
+  onNavigateToFAQ?: () => void;
+  onNavigateToCareers?: () => void;
+  onNavigateToAbout?: () => void;
 }
 
 export default function Contact({ 
@@ -69,7 +72,10 @@ export default function Contact({
   onNavigateToCarbonCreditProtocols,
   onNavigateToDMRVEngine,
   onStartProject,
-  onNavigateToHome
+  onNavigateToHome,
+  onNavigateToFAQ,
+  onNavigateToCareers,
+  onNavigateToAbout
 }: ContactProps) {
   const [formData, setFormData] = useState({
     name: '',
@@ -157,7 +163,6 @@ export default function Contact({
         onStartProject={onStartProject || (() => {})}
         onSignIn={() => {}}
         onRegister={() => {}}
-        showBackToHome={true}
         onNavigateToHome={onNavigateToHome}
       />
 
@@ -494,6 +499,9 @@ export default function Contact({
         onNavigateToDMRVEngine={onNavigateToDMRVEngine}
         onStartProject={onStartProject}
         onNavigateToHome={onNavigateToHome}
+        onNavigateToFAQ={onNavigateToFAQ}
+        onNavigateToCareers={onNavigateToCareers}
+        onNavigateToAbout={onNavigateToAbout}
       />
     </div>
   );

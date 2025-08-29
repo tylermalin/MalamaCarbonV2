@@ -15,7 +15,7 @@ import {
   FileText,
   Cookie
 } from 'lucide-react';
-import malamaLogo from '../assets/37a47935d44775c05b14ffaa2c0ff28eb3dc4288.png';
+
 
 interface FooterProps {
   onNavigateToTeam?: () => void;
@@ -35,6 +35,7 @@ interface FooterProps {
   onNavigateToHome?: () => void;
   onNavigateToFAQ?: () => void;
   onNavigateToCareers?: () => void;
+  onNavigateToAbout?: () => void;
 }
 
 const footerSections = [
@@ -92,7 +93,8 @@ export function Footer({
   onStartProject,
   onNavigateToHome,
   onNavigateToFAQ,
-  onNavigateToCareers
+  onNavigateToCareers,
+  onNavigateToAbout
 }: FooterProps) {
   const handleNavigation = (action?: string) => {
     switch (action) {
@@ -159,7 +161,7 @@ export function Footer({
               className="w-fit hover:opacity-80 transition-opacity duration-200"
             >
               <img 
-                src={malamaLogo} 
+                src="/MALAMA-LOGO.png" 
                 alt="Mālama Labs"
                 className="w-auto object-contain mb-6"
                 style={{
@@ -271,7 +273,7 @@ export function Footer({
               <ul className="space-y-3">
                 <li>
                   <button
-                    onClick={() => onNavigateToHome?.()}
+                    onClick={() => onNavigateToAbout?.()}
                     className="text-primary-foreground/70 hover:text-white transition-colors duration-200 text-sm"
                   >
                     About
