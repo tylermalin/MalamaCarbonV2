@@ -35,7 +35,7 @@ export function HeroSection({ onExplorePlatform, onHowItWorks }: HeroSectionProp
         <img 
           src="/src/assets/37a47935d44775c05b14ffaa2c0ff28eb3dc4288.png" 
           alt="Mālama Labs" 
-          className="h-24 md:h-[calc(var(--spacing)*90)] lg:h-[calc(var(--spacing)*90)] xl:h-48 w-auto object-contain hover:scale-105 transition-transform duration-300"
+                      className="h-[calc(var(--spacing)*80)] md:h-[calc(var(--spacing)*90)] lg:h-[calc(var(--spacing)*90)] xl:h-48 w-auto object-contain hover:scale-105 transition-transform duration-300"
         />
       </motion.div>
 
