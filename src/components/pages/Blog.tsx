@@ -154,6 +154,32 @@ export default function Blog({
   onNavigateToDMRVEngine,
   onStartProject
 }: BlogProps) {
+  const [email, setEmail] = useState('');
+  const [isSubscribing, setIsSubscribing] = useState(false);
+
+  const handleSubscribe = async () => {
+    if (!email || !email.includes('@')) {
+      alert('Please enter a valid email address');
+      return;
+    }
+
+    setIsSubscribing(true);
+    
+    try {
+      // Simulate API call - replace with actual newsletter subscription endpoint
+      await new Promise(resolve => setTimeout(resolve, 1000));
+      
+      // Here you would typically make an API call to subscribe the user
+      // Example: await fetch('/api/newsletter/subscribe', { method: 'POST', body: JSON.stringify({ email }) });
+      
+      alert('Thank you for subscribing to our newsletter!');
+      setEmail('');
+    } catch (error) {
+      alert('Failed to subscribe. Please try again.');
+    } finally {
+      setIsSubscribing(false);
+    }
+  };
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedCategory, setSelectedCategory] = useState('All');
 
@@ -482,8 +508,8 @@ export default function Blog({
           </p>
         </motion.div>
 
-        <Card className={sectionStyles.card}>
-          <CardContent className={sectionStyles.cardContent}>
+        <Card className={`${sectionStyles.card} p-5`}>
+          <CardContent className={`${sectionStyles.cardContent} p-5`}>
             <div className="text-center">
               <BookOpen className="w-16 h-16 text-primary mx-auto mb-6" />
               <h3 className="text-2xl font-bold mb-4 text-primary">Subscribe to Our Newsletter</h3>
@@ -496,13 +522,16 @@ export default function Blog({
                 <Input
                   placeholder="Enter your email address"
                   className="flex-1"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
                 />
                 <Button
                   size="lg"
-                  onClick={() => {}}
+                  onClick={handleSubscribe}
+                  disabled={isSubscribing}
                   className="bg-primary hover:bg-primary/90 text-white px-8 py-4 text-lg font-semibold hover:scale-105 transition-all duration-300 shadow-lg"
                 >
-                  Subscribe
+                  {isSubscribing ? 'Subscribing...' : 'Subscribe'}
                   <ArrowRight className="w-5 h-5 ml-2" />
                 </Button>
               </div>
