@@ -21,7 +21,7 @@ export function AudienceSpecificCTA({
       subtitle: "Build tools on our APIs",
       description: "Access comprehensive APIs for carbon measurement, verification, and trading. Create innovative climate solutions with our developer-friendly platform.",
       icon: Code,
-      color: "bg-blue-500",
+      color: "bg-green-800",
       action: onStartProject,
       buttonText: "Get Started"
     },
@@ -30,7 +30,7 @@ export function AudienceSpecificCTA({
       subtitle: "Purchase LC02 with transparency",
       description: "Buy high-quality, verified carbon removal credits with complete traceability and blockchain-verified provenance.",
       icon: ShoppingCart,
-      color: "bg-green-500",
+      color: "bg-green-800",
       action: onPurchaseCredits,
       buttonText: "Get Started"
     },
@@ -39,7 +39,7 @@ export function AudienceSpecificCTA({
       subtitle: "Help us scale",
       description: "Join our network of technology partners, research institutions, and climate organizations to accelerate global carbon removal.",
       icon: Handshake,
-      color: "bg-purple-500",
+      color: "bg-green-800",
       action: onPartnerWithUs,
       buttonText: "Get Started"
     }
