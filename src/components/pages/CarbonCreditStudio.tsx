@@ -445,7 +445,7 @@ export function CarbonCreditStudio({
                 <Card className={`h-full border-none bg-card/80 backdrop-blur-sm ${tier.popular ? 'ring-2 ring-primary' : ''}`}>
                   <CardContent className="p-8 bg-gradient-to-br from-[rgba(27,67,50,0.08)] via-[rgba(10,61,63,0.05)] to-[rgba(236,230,218,0.12)] relative">
                     {tier.popular && (
-                      <div className="absolute -top-3 left-1/2 transform -translate-x-1/2">
+                      <div className="absolute -top-6 left-1/2 transform -translate-x-1/2">
                         <div className="bg-primary text-white px-4 py-1 rounded-full text-sm font-medium">
                           Most Popular
                         </div>
