@@ -2,6 +2,7 @@ import React from 'react';
 import { motion } from 'motion/react';
 import { Button } from '../ui/button';
 import { Card, CardContent } from '../ui/card';
+import { PageHeader } from '../ui/page-header';
 import { 
   Flame, 
   Leaf, 
@@ -146,6 +147,32 @@ interface BiocharProtocolsProps {
 export function BiocharProtocols({ onStartProject, onBackToPlatform }: BiocharProtocolsProps) {
   return (
     <div className="min-h-screen bg-background">
+      {/* Page Header */}
+      <PageHeader
+        onNavigateToPage={(page) => {
+          // Handle navigation based on page
+          if (page === 'explore-platform') onBackToPlatform?.();
+          if (page === 'how-it-works') onBackToPlatform?.();
+          if (page === 'our-team') onBackToPlatform?.();
+          if (page === 'pricing') onBackToPlatform?.();
+          if (page === 'contact') onBackToPlatform?.();
+          if (page === 'blog') onBackToPlatform?.();
+          if (page === 'documentation') onBackToPlatform?.();
+          if (page === 'faq') onBackToPlatform?.();
+          if (page === 'careers') onBackToPlatform?.();
+          if (page === 'about') onBackToPlatform?.();
+          if (page === 'dmrv-engine') onBackToPlatform?.();
+          if (page === 'carbon-credit-studio') onBackToPlatform?.();
+          if (page === 'carbon-credit-protocols') onBackToPlatform?.();
+          if (page === 'onboarding') onStartProject?.();
+        }}
+        onStartProject={onStartProject || (() => {})}
+        onSignIn={() => {}}
+        onRegister={() => {}}
+        showBackToHome={true}
+        onNavigateToHome={onBackToPlatform}
+      />
+
       {/* Hero Section */}
       <section className="py-20 px-6 bg-gradient-to-br from-primary/5 via-secondary/5 to-background">
         <div className="max-w-7xl mx-auto">

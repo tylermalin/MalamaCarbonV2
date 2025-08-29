@@ -3,6 +3,7 @@ import { motion } from 'motion/react';
 import { Card, CardContent } from '../ui/card';
 import { Button } from '../ui/button';
 import { Footer } from '../Footer';
+import { PageHeader } from '../ui/page-header';
 import { ArrowLeft, Shield, Eye, Lock, UserCheck, Globe, FileText } from 'lucide-react';
 
 interface PrivacyPolicyProps {
@@ -161,27 +162,74 @@ const PrivacyPolicy: React.FC<PrivacyPolicyProps> = ({
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-primary/5 via-background to-secondary/5">
-      {/* Navigation */}
-      <div className="fixed top-0 left-0 right-0 z-50 bg-background border-b border-border shadow-lg">
-        <div className="container mx-auto px-6 py-6">
-          <Button
-            variant="ghost"
-            onClick={onBackToHome}
-            className="flex items-center gap-3 hover:bg-accent/50 text-base font-medium px-6 py-3 rounded-xl transition-all duration-300"
-          >
-            <ArrowLeft className="w-5 h-5" />
-            Back to Home
-          </Button>
-        </div>
-      </div>
-
-      {/* Spacer to ensure content doesn't overlap with fixed nav */}
-      <div className="h-24"></div>
+      {/* Page Header */}
+      <PageHeader
+        onNavigateToPage={(page) => {
+          // Handle navigation based on page
+          if (page === 'explore-platform') onExplorePlatform?.();
+          if (page === 'how-it-works') onHowItWorks?.();
+          if (page === 'our-team') onNavigateToTeam?.();
+          if (page === 'pricing') onNavigateToPricing?.();
+          if (page === 'contact') onNavigateToContact?.();
+          if (page === 'blog') onNavigateToBlog?.();
+          if (page === 'documentation') onNavigateToDocumentation?.();
+          if (page === 'faq') onNavigateToContact?.();
+          if (page === 'careers') onNavigateToContact?.();
+          if (page === 'about') onExplorePlatform?.();
+          if (page === 'dmrv-engine') onExplorePlatform?.();
+          if (page === 'carbon-credit-studio') onExplorePlatform?.();
+          if (page === 'carbon-credit-protocols') onExplorePlatform?.();
+          if (page === 'onboarding') onBackToHome?.();
+        }}
+        onStartProject={onBackToHome || (() => {})}
+        onSignIn={() => {}}
+        onRegister={() => {}}
+        showBackToHome={true}
+        onNavigateToHome={onBackToHome}
+      />
       
       <div className="container mx-auto px-8 max-w-5xl py-8">
+        {/* Header Section */}
+        <motion.div 
+          className="text-center mb-16"
+          initial={{ opacity: 0, y: 50 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8 }}
+        >
+          <div className="flex items-center justify-center gap-3 mb-6">
+            <div className="w-16 h-16 bg-primary rounded-2xl flex items-center justify-center">
+              <Shield className="w-8 h-8 text-white" />
+            </div>
+            <h1 className="text-5xl md:text-7xl text-primary font-bold">
+              Privacy Policy
+            </h1>
+          </div>
+          <p className="text-xl md:text-2xl text-muted-foreground max-w-3xl mx-auto mb-8">
+            How we protect your data and maintain transparency in our carbon credit platform
+          </p>
+          <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <Button 
+              variant="outline" 
+              size="lg"
+              onClick={() => document.getElementById('quick-overview')?.scrollIntoView({ behavior: 'smooth' })}
+              className="hover:scale-105 transition-transform duration-300"
+            >
+              Quick Overview
+            </Button>
+            <Button 
+              variant="outline" 
+              size="lg"
+              onClick={() => document.getElementById('contact-section')?.scrollIntoView({ behavior: 'smooth' })}
+              className="hover:scale-105 transition-transform duration-300"
+            >
+              Contact Us
+            </Button>
+          </div>
+        </motion.div>
 
-          {/* Quick Overview */}
+                  {/* Quick Overview */}
           <motion.div
+            id="quick-overview"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.2 }}

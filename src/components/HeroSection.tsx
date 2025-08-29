@@ -47,16 +47,16 @@ export function HeroSection({ onExplorePlatform, onHowItWorks }: HeroSectionProp
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1, delay: 0.2 }}
         >
-          Automating Carbon Removal, Starting from Hawaiʻi
+          Track. Verify. Trade.
         </motion.h1>
         
         <motion.p 
-          className="text-xl md:text-2xl mb-8 text-white/90 max-w-2xl mx-auto"
+          className="text-xl md:text-2xl mb-8 text-white/90 max-w-3xl mx-auto"
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1, delay: 0.4 }}
         >
-          A global platform for regenerative projects, climate data, and traceable carbon assets.
+          Carbon removal made global, automated, and unstoppable.
         </motion.p>
         
         <motion.div 
@@ -81,6 +81,8 @@ export function HeroSection({ onExplorePlatform, onHowItWorks }: HeroSectionProp
             How It Works
           </Button>
         </motion.div>
+
+
       </div>
       
       {/* Scroll Indicator */}

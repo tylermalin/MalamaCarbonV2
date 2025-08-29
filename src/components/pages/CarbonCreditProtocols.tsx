@@ -4,6 +4,7 @@ import { Card, CardContent } from '../ui/card';
 import { Button } from '../ui/button';
 import { Badge } from '../ui/badge';
 import { Footer } from '../Footer';
+import { PageHeader } from '../ui/page-header';
 import { ArrowLeft, CheckCircle, Shield, Award, Globe, Users, Database, Zap, TreePine, Factory, Leaf, Recycle } from 'lucide-react';
 
 const carbonStandards = [
@@ -183,27 +184,31 @@ export function CarbonCreditProtocols({
 }: CarbonCreditProtocolsProps) {
   return (
     <div className="min-h-screen bg-background">
-      {/* Navigation */}
-      <div className="fixed top-0 left-0 right-0 z-50 bg-background/80 backdrop-blur-md border-b border-border">
-        <div className="container mx-auto px-8 py-4">
-          <div className="flex items-center justify-between">
-            <Button
-              variant="ghost"
-              onClick={onBackToHome}
-              className="flex items-center gap-2 hover:bg-accent"
-            >
-              <ArrowLeft className="w-4 h-4" />
-              Back to Home
-            </Button>
-            <div className="text-sm text-muted-foreground">
-              Carbon Credit Protocols
-            </div>
-          </div>
-        </div>
-      </div>
-
-      {/* Spacer for fixed nav */}
-      <div className="h-24"></div>
+      {/* Page Header */}
+      <PageHeader
+        onNavigateToPage={(page) => {
+          // Handle navigation based on page
+          if (page === 'explore-platform') onBackToHome?.();
+          if (page === 'how-it-works') onBackToHome?.();
+          if (page === 'our-team') onBackToHome?.();
+          if (page === 'pricing') onBackToHome?.();
+          if (page === 'contact') onBackToHome?.();
+          if (page === 'blog') onBackToHome?.();
+          if (page === 'documentation') onBackToHome?.();
+          if (page === 'faq') onBackToHome?.();
+          if (page === 'careers') onBackToHome?.();
+          if (page === 'about') onBackToHome?.();
+          if (page === 'dmrv-engine') onBackToHome?.();
+          if (page === 'carbon-credit-studio') onNavigateToCarbonCreditStudio?.();
+          if (page === 'carbon-credit-protocols') onBackToHome?.();
+          if (page === 'onboarding') onBackToHome?.();
+        }}
+        onStartProject={onBackToHome || (() => {})}
+        onSignIn={() => {}}
+        onRegister={() => {}}
+        showBackToHome={true}
+        onNavigateToHome={onBackToHome}
+      />
 
       {/* Hero Section */}
       <section className="py-20 px-6 bg-gradient-to-br from-primary/5 via-secondary/5 to-background">

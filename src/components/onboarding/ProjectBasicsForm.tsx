@@ -72,54 +72,60 @@ const ProjectBasicsForm: React.FC<ProjectBasicsFormProps> = ({ data, onNext }) =
 
   return (
     <Card className="max-w-2xl mx-auto p-8">
-      <div className="mb-6">
-        <h2 className="text-2xl font-bold mb-2">Project Basics</h2>
-        <p className="text-muted-foreground">
+      <div className="mb-8">
+        <h2 className="text-3xl font-bold mb-3 text-foreground">Project Basics</h2>
+        <p className="text-lg text-muted-foreground">
           Tell us about your carbon credit project and its key characteristics.
         </p>
       </div>
       
-      <form onSubmit={handleSubmit} className="space-y-6">
+      <form onSubmit={handleSubmit} className="space-y-8">
         <div className="space-y-4">
-          <Label htmlFor="projectName">Project Name *</Label>
+          <Label htmlFor="projectName" className="text-base font-semibold text-foreground">
+            Project Name *
+          </Label>
           <Input
             id="projectName"
             value={formData.projectName}
             onChange={(e) => handleInputChange('projectName', e.target.value)}
             placeholder="Enter your project name"
-            className={errors.projectName ? 'border-red-500' : ''}
+            className={`h-11 px-4 ${errors.projectName ? 'border-red-500' : ''}`}
           />
           {errors.projectName && (
-            <p className="text-sm text-red-600">{errors.projectName}</p>
+            <p className="text-sm text-red-600 mt-2">{errors.projectName}</p>
           )}
         </div>
 
         <div className="space-y-4">
-          <Label htmlFor="projectDescription">Project Description *</Label>
+          <Label htmlFor="projectDescription" className="text-base font-semibold text-foreground">
+            Project Description *
+          </Label>
           <Textarea
             id="projectDescription"
             value={formData.projectDescription}
             onChange={(e) => handleInputChange('projectDescription', e.target.value)}
             placeholder="Describe your project goals, methods, and expected outcomes"
             rows={4}
-            className={errors.projectDescription ? 'border-red-500' : ''}
+            className={`min-h-20 ${errors.projectDescription ? 'border-red-500' : ''}`}
           />
           {errors.projectDescription && (
-            <p className="text-sm text-red-600">{errors.projectDescription}</p>
+            <p className="text-sm text-red-600 mt-2">{errors.projectDescription}</p>
           )}
         </div>
 
         <div className="space-y-4">
-          <Label htmlFor="location">Project Location *</Label>
+          <Label htmlFor="location" className="text-base font-semibold text-foreground">
+            Project Location *
+          </Label>
           <Input
             id="location"
             value={formData.location}
             onChange={(e) => handleInputChange('location', e.target.value)}
             placeholder="City, State/Province, Country"
-            className={errors.location ? 'border-red-500' : ''}
+            className={`h-11 px-4 ${errors.location ? 'border-red-500' : ''}`}
           />
           {errors.location && (
-            <p className="text-sm text-red-600">{errors.location}</p>
+            <p className="text-sm text-red-600 mt-2">{errors.location}</p>
           )}
         </div>
 

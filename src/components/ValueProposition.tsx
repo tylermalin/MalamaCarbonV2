@@ -4,10 +4,10 @@ import { ImageWithFallback } from './figma/ImageWithFallback';
 import { Sprout, Network } from 'lucide-react';
 
 interface ValuePropositionProps {
-  onHowItWorks?: () => void;
+  onExplorePlatform?: () => void;
 }
 
-export function ValueProposition({ onHowItWorks }: ValuePropositionProps) {
+export function ValueProposition({ onExplorePlatform }: ValuePropositionProps) {
   return (
     <section className="py-20 px-6 bg-[rgba(190,203,187,0.45)]">
       <div className="max-w-6xl mx-auto">
@@ -88,7 +88,7 @@ export function ValueProposition({ onHowItWorks }: ValuePropositionProps) {
             variant="outline" 
             size="lg" 
             className="hover:scale-105 transition-transform duration-300"
-            onClick={onHowItWorks}
+            onClick={onExplorePlatform}
           >
             Learn More
           </Button>

@@ -17,7 +17,7 @@ const modules = [
     icon: Flame,
     color: "bg-secondary",
     delay: 0.2,
-    id: "biochar-protocols"
+    id: "carbon-credit-protocols"
   },
   {
     title: "Carbon Credit Studio",

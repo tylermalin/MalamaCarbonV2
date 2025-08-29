@@ -169,25 +169,27 @@ export function AuthModal({ isOpen, onClose, onAuthSuccess }: AuthModalProps) {
             )}
           </AnimatePresence>
 
-          <TabsContent value="signin" className="space-y-4">
+          <TabsContent value="signin" className="space-y-6">
             <Card>
-              <CardHeader>
-                <CardTitle className="text-lg">Welcome back</CardTitle>
-                <CardDescription>
+              <CardHeader className="pb-4">
+                <CardTitle className="text-xl font-semibold text-foreground">Welcome Back</CardTitle>
+                <CardDescription className="text-base text-muted-foreground">
                   Sign in to access your carbon projects and dashboard
                 </CardDescription>
               </CardHeader>
-              <CardContent>
-                <form onSubmit={handleSignIn} className="space-y-4">
-                  <div className="space-y-2">
-                    <Label htmlFor="signin-email">Email</Label>
+              <CardContent className="pt-2">
+                <form onSubmit={handleSignIn} className="space-y-6">
+                  <div className="space-y-3">
+                    <Label htmlFor="signin-email" className="text-sm font-medium text-foreground">
+                      Email Address
+                    </Label>
                     <div className="relative">
-                      <Mail className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
+                      <Mail className="absolute left-4 top-1/2 transform -translate-y-1/2 h-4 w-4 text-muted-foreground" />
                       <Input
                         id="signin-email"
                         type="email"
-                        placeholder="your@email.com"
-                        className="pl-10"
+                        placeholder="your.email@company.com"
+                        className="pl-12 h-12 text-base"
                         value={signInData.email}
                         onChange={(e) => setSignInData({ ...signInData, email: e.target.value })}
                         required
@@ -196,15 +198,17 @@ export function AuthModal({ isOpen, onClose, onAuthSuccess }: AuthModalProps) {
                     </div>
                   </div>
 
-                  <div className="space-y-2">
-                    <Label htmlFor="signin-password">Password</Label>
+                  <div className="space-y-3">
+                    <Label htmlFor="signin-password" className="text-sm font-medium text-foreground">
+                      Password
+                    </Label>
                     <div className="relative">
-                      <Lock className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
+                      <Lock className="absolute left-4 top-1/2 transform -translate-y-1/2 h-4 w-4 text-muted-foreground" />
                       <Input
                         id="signin-password"
                         type="password"
-                        placeholder="Your password"
-                        className="pl-10"
+                        placeholder="Enter your password"
+                        className="pl-12 h-12 text-base"
                         value={signInData.password}
                         onChange={(e) => setSignInData({ ...signInData, password: e.target.value })}
                         required
@@ -213,7 +217,7 @@ export function AuthModal({ isOpen, onClose, onAuthSuccess }: AuthModalProps) {
                     </div>
                   </div>
 
-                  <Button type="submit" className="w-full" disabled={isLoading}>
+                  <Button type="submit" className="w-full h-12 text-base font-medium" disabled={isLoading}>
                     {isLoading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
                     Sign In
                   </Button>

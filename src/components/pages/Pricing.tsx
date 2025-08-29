@@ -1,16 +1,32 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { motion } from 'motion/react';
-import { Card, CardContent } from '../ui/card';
 import { Button } from '../ui/button';
-import { Badge } from '../ui/badge';
+import { Card, CardContent } from '../ui/card';
 import { Footer } from '../Footer';
-import { ArrowLeft, Check, Zap, Shield, Crown, ArrowRight, Calculator, TrendingUp, DollarSign } from 'lucide-react';
+import { PageHeader } from '../ui/page-header';
+import { 
+  HeroSection,
+  ContentSection,
+  ThreeColumnLayout,
+  CTASection,
+  sectionStyles
+} from '../ui/page-layout';
+import { 
+  Check, 
+  X, 
+  ArrowRight,
+  Zap,
+  Cpu,
+  Flame,
+  Coins,
+  BarChart3,
+  Users,
+  Globe,
+  Shield,
+  Star
+} from 'lucide-react';
 
 interface PricingProps {
-  onBackToHome: () => void;
-  onStartProject: () => void;
-  onBuyerOnboarding: () => void;
-  onInvestmentOnboarding: () => void;
   onNavigateToTeam?: () => void;
   onExplorePlatform?: () => void;
   onHowItWorks?: () => void;
@@ -21,13 +37,118 @@ interface PricingProps {
   onNavigateToPrivacy?: () => void;
   onNavigateToTerms?: () => void;
   onNavigateToCookies?: () => void;
+  onNavigateToCarbonCreditStudio?: () => void;
+  onNavigateToCarbonCreditProtocols?: () => void;
+  onNavigateToDMRVEngine?: () => void;
+  onStartProject?: () => void;
 }
 
-const Pricing: React.FC<PricingProps> = ({ 
-  onBackToHome, 
-  onStartProject, 
-  onBuyerOnboarding, 
-  onInvestmentOnboarding,
+interface PricingTier {
+  name: string;
+  price: string;
+  description: string;
+  features: string[];
+  notIncluded: string[];
+  popular?: boolean;
+  icon: React.ElementType;
+  color: string;
+  cta: string;
+  ctaVariant: "default" | "outline";
+}
+
+const pricingTiers: PricingTier[] = [
+  {
+    name: "Starter",
+    price: "$99",
+    description: "Perfect for small carbon removal projects getting started",
+    features: [
+      "Up to 100 carbon credits per month",
+      "Basic dMRV monitoring",
+      "Standard verification protocols",
+      "Email support",
+      "Basic reporting dashboard"
+    ],
+    notIncluded: [
+      "Advanced analytics",
+      "Custom protocols",
+      "Priority support",
+      "API access"
+    ],
+    icon: Zap,
+    color: "bg-primary",
+    cta: "Get Started",
+    ctaVariant: "outline"
+  },
+  {
+    name: "Professional",
+    price: "$299",
+    description: "Ideal for growing projects with advanced needs",
+    features: [
+      "Up to 1,000 carbon credits per month",
+      "Advanced dMRV monitoring",
+      "Custom verification protocols",
+      "Priority support",
+      "Advanced analytics dashboard",
+      "API access",
+      "Custom integrations"
+    ],
+    notIncluded: [
+      "Unlimited credits",
+      "Dedicated account manager",
+      "White-label solutions"
+    ],
+    popular: true,
+    icon: Cpu,
+    color: "bg-secondary",
+    cta: "Start Free Trial",
+    ctaVariant: "default"
+  },
+  {
+    name: "Enterprise",
+    price: "Custom",
+    description: "For large-scale operations requiring enterprise solutions",
+    features: [
+      "Unlimited carbon credits",
+      "Full dMRV platform access",
+      "Custom protocol development",
+      "Dedicated account manager",
+      "White-label solutions",
+      "Custom integrations",
+      "SLA guarantees",
+      "On-premise deployment options"
+    ],
+    notIncluded: [],
+    icon: Coins,
+    color: "bg-accent",
+    cta: "Contact Sales",
+    ctaVariant: "outline"
+  }
+];
+
+const pricingFeatures = [
+  {
+    icon: Shield,
+    title: "Transparent Pricing",
+    description: "No hidden fees. Pay only for what you use with clear, predictable costs."
+  },
+  {
+    icon: Users,
+    title: "Scalable Plans",
+    description: "Start small and grow with flexible plans that adapt to your project size."
+  },
+  {
+    icon: Globe,
+    title: "Global Support",
+    description: "24/7 support across all time zones to help you succeed anywhere in the world."
+  },
+  {
+    icon: Star,
+    title: "Premium Quality",
+    description: "Enterprise-grade infrastructure and security for mission-critical operations."
+  }
+];
+
+export default function Pricing({ 
   onNavigateToTeam,
   onExplorePlatform,
   onHowItWorks,
@@ -37,412 +158,314 @@ const Pricing: React.FC<PricingProps> = ({
   onNavigateToContact,
   onNavigateToPrivacy,
   onNavigateToTerms,
-  onNavigateToCookies
-}) => {
-  const pricingTiers = [
-    {
-      name: "Starter",
-      price: "Free",
-      description: "Perfect for small projects and testing our platform",
-      icon: Zap,
-      color: "bg-secondary",
-      features: [
-        "Up to 100 tCO2e/year project capacity",
-        "Basic dMRV monitoring",
-        "Community support",
-        "Standard verification timeline",
-        "Basic dashboard analytics",
-        "Email support"
-      ],
-      limitations: [
-        "Limited to biochar projects only",
-        "No priority support",
-        "Standard verification speed"
-      ],
-      cta: "Start Free Project",
-      popular: false
-    },
-    {
-      name: "Professional",
-      price: "$2,500",
-      period: "/year",
-      description: "Ideal for established projects and growing operations",
-      icon: Shield,
-      color: "bg-primary",
-      features: [
-        "Up to 5,000 tCO2e/year project capacity",
-        "Advanced dMRV with IoT sensors",
-        "All credit types supported",
-        "Priority verification (50% faster)",
-        "Advanced analytics & reporting",
-        "Dedicated account manager",
-        "Phone & email support",
-        "Custom integration support",
-        "Quarterly business reviews"
-      ],
-      limitations: [],
-      cta: "Start Professional",
-      popular: true
-    },
-    {
-      name: "Enterprise",
-      price: "Custom",
-      description: "For large-scale operations and institutional buyers",
-      icon: Crown,
-      color: "bg-gradient-to-r from-primary to-secondary",
-      features: [
-        "Unlimited project capacity",
-        "White-label platform options",
-        "Custom protocol development",
-        "Priority verification (75% faster)",
-        "Real-time API access",
-        "Dedicated success team",
-        "24/7 phone support",
-        "Custom integrations & workflows",
-        "SLA guarantees",
-        "On-site training & support"
-      ],
-      limitations: [],
-      cta: "Contact Sales",
-      popular: false
-    }
-  ];
+  onNavigateToCookies,
+  onNavigateToCarbonCreditStudio,
+  onNavigateToCarbonCreditProtocols,
+  onNavigateToDMRVEngine,
+  onStartProject
+}: PricingProps) {
+  const [billingCycle, setBillingCycle] = useState<'monthly' | 'annual'>('monthly');
 
-  const buyerPricing = [
-    {
-      type: "Biochar Credits (LC02)",
-      price: "$180-250",
-      unit: "per tCO2e",
-      description: "Premium biochar carbon removal with 1000+ year durability",
-      features: [
-        "Verified 1000+ year storage",
-        "Real-time monitoring",
-        "Blockchain provenance",
-        "Verra VCS compliance"
-      ]
-    },
-    {
-      type: "Enhanced Rock Weathering",
-      price: "$120-180",
-      unit: "per tCO2e",
-      description: "Natural weathering acceleration for permanent CO2 storage",
-      features: [
-        "Geological permanence",
-        "Soil health co-benefits",
-        "Measurement verification",
-        "Agricultural integration"
-      ]
-    },
-    {
-      type: "Agroforestry Credits",
-      price: "$80-120",
-      unit: "per tCO2e",
-      description: "Tree-based carbon removal with biodiversity benefits",
-      features: [
-        "Long-term sequestration",
-        "Biodiversity impact",
-        "Community co-benefits",
-        "Satellite monitoring"
-      ]
+  const getPrice = (basePrice: string) => {
+    if (basePrice === 'Custom') return 'Custom';
+    const price = parseInt(basePrice.replace('$', ''));
+    if (billingCycle === 'annual') {
+      const annualPrice = Math.round(price * 12 * 0.8); // 20% discount
+      return `$${annualPrice}`;
     }
-  ];
+    return basePrice;
+  };
+
+  const getBillingText = (basePrice: string) => {
+    if (basePrice === 'Custom') return '';
+    if (billingCycle === 'annual') {
+      return '/year (save 20%)';
+    }
+    return '/month';
+  };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-primary/5 via-background to-secondary/5">
-      {/* Navigation */}
-      <div className="fixed top-0 left-0 right-0 z-50 bg-background border-b border-border shadow-lg">
-        <div className="container mx-auto px-6 py-6">
-          <Button
-            variant="ghost"
-            onClick={onBackToHome}
-            className="flex items-center gap-3 hover:bg-accent/50 text-base font-medium px-6 py-3 rounded-xl transition-all duration-300"
+    <div className="min-h-screen bg-background">
+      {/* Page Header */}
+      <PageHeader
+        onNavigateToPage={(page) => {
+          // Handle navigation based on page
+          if (page === 'explore-platform') onExplorePlatform?.();
+          if (page === 'how-it-works') onHowItWorks?.();
+          if (page === 'our-team') onNavigateToTeam?.();
+          if (page === 'pricing') onNavigateToPricing?.();
+          if (page === 'contact') onNavigateToContact?.();
+          if (page === 'blog') onNavigateToBlog?.();
+          if (page === 'documentation') onNavigateToDocumentation?.();
+          if (page === 'faq') onNavigateToContact?.();
+          if (page === 'careers') onNavigateToContact?.();
+          if (page === 'about') onExplorePlatform?.();
+          if (page === 'dmrv-engine') onNavigateToDMRVEngine?.();
+          if (page === 'carbon-credit-studio') onNavigateToCarbonCreditStudio?.();
+          if (page === 'carbon-credit-protocols') onNavigateToCarbonCreditProtocols?.();
+          if (page === 'onboarding') onStartProject?.();
+        }}
+        onStartProject={onStartProject || (() => {})}
+        onSignIn={() => {}}
+        onRegister={() => {}}
+        showBackToHome={true}
+        onNavigateToHome={() => {}}
+      />
+
+      {/* Hero Section */}
+      <HeroSection
+        title="Simple, Transparent Pricing"
+        subtitle="Choose the plan that fits your carbon removal project. Scale up as you grow with no hidden fees."
+      >
+        <div className="flex flex-col sm:flex-row gap-4 justify-center">
+          <Button 
+            size="lg"
+            onClick={onStartProject}
+            className={sectionStyles.button}
           >
-            <ArrowLeft className="w-5 h-5" />
-            Back to Home
+            Start Free Trial
+            <ArrowRight className="w-5 h-5 mr-2" />
+          </Button>
+          <Button 
+            variant="outline" 
+            size="lg"
+            onClick={onNavigateToContact}
+            className={sectionStyles.button}
+          >
+            Contact Sales
+            <Users className="w-5 h-5 mr-2" />
           </Button>
         </div>
-      </div>
+      </HeroSection>
 
-      {/* Spacer to ensure content doesn't overlap with fixed nav */}
-      <div className="h-24"></div>
-      
-      {/* Hero Section */}
-      <section className="py-20 px-6 bg-gradient-to-br from-primary/5 via-secondary/5 to-background">
-        <div className="max-w-7xl mx-auto">
-          <motion.div 
-            className="text-center mb-16"
-            initial={{ opacity: 0, y: 50 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-          >
-            <h1 className="text-5xl md:text-7xl mb-6 text-primary font-bold">
-              Pricing
-            </h1>
-            <p className="text-xl md:text-2xl text-muted-foreground max-w-3xl mx-auto mb-8">
-              Transparent, scalable pricing for carbon credit creators and buyers. Start free and scale as your impact grows.
-            </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Button 
-                size="lg"
-                className="hover:scale-105 transition-transform duration-300"
-              >
-                <Zap className="w-5 h-5 mr-2" />
-                Start Free Trial
-              </Button>
-              <Button 
-                variant="outline" 
-                size="lg"
-                className="hover:scale-105 transition-transform duration-300"
-              >
-                Compare Plans
-                <ArrowRight className="w-5 h-5 ml-2" />
-              </Button>
-            </div>
-          </motion.div>
+      {/* Billing Toggle */}
+      <ContentSection>
+        <motion.div 
+          className="text-center mb-16"
+          initial={{ opacity: 0, y: 50 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8 }}
+          viewport={{ once: true }}
+        >
+          <h2 className={sectionStyles.heading2}>
+            Choose Your Plan
+          </h2>
+          <p className={sectionStyles.subheading}>
+            Flexible billing options to match your project timeline and budget
+          </p>
+          
+          {/* Billing Cycle Toggle */}
+          <div className="flex items-center justify-center gap-4 mt-8">
+            <span className={`text-sm font-medium ${billingCycle === 'monthly' ? 'text-primary' : 'text-muted-foreground'}`}>
+              Monthly
+            </span>
+            <button
+              onClick={() => setBillingCycle(billingCycle === 'monthly' ? 'annual' : 'monthly')}
+              className="relative inline-flex h-6 w-11 items-center rounded-full transition-colors focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2"
+              style={{ backgroundColor: billingCycle === 'annual' ? 'var(--primary)' : 'var(--muted)' }}
+            >
+              <span
+                className={`inline-block h-4 w-4 transform rounded-full bg-white transition-transform ${
+                  billingCycle === 'annual' ? 'translate-x-6' : 'translate-x-1'
+                }`}
+              />
+            </button>
+            <span className={`text-sm font-medium ${billingCycle === 'annual' ? 'text-primary' : 'text-muted-foreground'}`}>
+              Annual
+              <span className="ml-1 text-xs bg-primary/10 text-primary px-2 py-1 rounded-full">
+                Save 20%
+              </span>
+            </span>
+          </div>
+        </motion.div>
 
-          {/* Benefits Grid */}
-          <motion.div 
-            className="grid grid-cols-2 md:grid-cols-4 gap-6"
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.2 }}
-          >
-            <Card className="text-center border-none bg-card/50 backdrop-blur-sm">
-              <CardContent className="p-6">
-                <DollarSign className="w-8 h-8 text-primary mx-auto mb-2" />
-                <div className="text-2xl font-bold text-primary mb-1">Pay Per Use</div>
-                <div className="text-sm text-muted-foreground">Only pay for credits you generate</div>
-              </CardContent>
-            </Card>
-            <Card className="text-center border-none bg-card/50 backdrop-blur-sm">
-              <CardContent className="p-6">
-                <Zap className="w-8 h-8 text-primary mx-auto mb-2" />
-                <div className="text-2xl font-bold text-primary mb-1">No Setup Fees</div>
-                <div className="text-sm text-muted-foreground">Start immediately with free onboarding</div>
-              </CardContent>
-            </Card>
-            <Card className="text-center border-none bg-card/50 backdrop-blur-sm">
-              <CardContent className="p-6">
-                <TrendingUp className="w-8 h-8 text-primary mx-auto mb-2" />
-                <div className="text-2xl font-bold text-primary mb-1">Scale Discounts</div>
-                <div className="text-sm text-muted-foreground">Lower rates as your volume grows</div>
-              </CardContent>
-            </Card>
-            <Card className="text-center border-none bg-card/50 backdrop-blur-sm">
-              <CardContent className="p-6">
-                <Calculator className="w-8 h-8 text-primary mx-auto mb-2" />
-                <div className="text-2xl font-bold text-primary mb-1">Cost Calculator</div>
-                <div className="text-sm text-muted-foreground">Transparent pricing estimator</div>
-              </CardContent>
-            </Card>
-          </motion.div>
-        </div>
-      </section>
-
-      <div className="container mx-auto px-8 py-8">
-
-          {/* Creator Pricing */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.2 }}
-            className="mb-20 my-[120px]"
-          >
-            <h2 className="text-3xl font-bold text-center mb-4">For Carbon Credit Creators</h2>
-            <p className="text-center text-muted-foreground mb-12 max-w-2xl mx-auto">
-              Choose the plan that fits your project size and verification needs. 
-              All plans include access to our dMRV platform and marketplace.
-            </p>
-
-            <div className="grid md:grid-cols-3 gap-8">
-              {pricingTiers.map((tier, index) => (
-                <motion.div
-                  key={tier.name}
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.6, delay: 0.1 * index }}
-                  className="relative"
-                >
-                  {tier.popular && (
-                    <div className="absolute -top-4 left-1/2 transform -translate-x-1/2">
-                      <Badge className="bg-primary text-primary-foreground">Most Popular</Badge>
+        {/* Pricing Cards */}
+        <ThreeColumnLayout
+          columns={pricingTiers.map((tier) => (
+            <motion.div
+              key={tier.name}
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6 }}
+              viewport={{ once: true }}
+              className="relative"
+            >
+              {tier.popular && (
+                <div className="absolute -top-4 left-1/2 transform -translate-x-1/2">
+                  <span className="bg-primary text-primary-foreground px-4 py-2 rounded-full text-sm font-medium">
+                    Most Popular
+                  </span>
+                </div>
+              )}
+              
+              <Card className={`h-full hover:shadow-xl transition-all duration-300 ${
+                tier.popular ? 'ring-2 ring-primary' : ''
+              }`}>
+                <CardContent className="p-8">
+                  <div className="text-center mb-6">
+                    <div className={`w-16 h-16 ${tier.color} rounded-full flex items-center justify-center mx-auto mb-4`}>
+                      <tier.icon className="w-8 h-8 text-white" />
+                    </div>
+                    <h3 className="text-2xl font-bold text-primary mb-2">{tier.name}</h3>
+                    <p className="text-muted-foreground mb-4">{tier.description}</p>
+                    
+                    <div className="mb-6">
+                      <span className="text-4xl font-bold text-foreground">
+                        {getPrice(tier.price)}
+                      </span>
+                      <span className="text-muted-foreground ml-2">
+                        {getBillingText(tier.price)}
+                      </span>
+                    </div>
+                  </div>
+                  
+                  {/* Features */}
+                  <div className="space-y-4 mb-8">
+                    <h4 className="font-semibold text-foreground">What's included:</h4>
+                    <ul className="space-y-3">
+                      {tier.features.map((feature, index) => (
+                        <li key={index} className="flex items-start space-x-3">
+                          <Check className="w-5 h-5 text-primary flex-shrink-0 mt-0.5" />
+                          <span className="text-sm text-foreground">{feature}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                  
+                  {/* Not Included */}
+                  {tier.notIncluded.length > 0 && (
+                    <div className="space-y-4 mb-8">
+                      <h4 className="font-semibold text-foreground">Not included:</h4>
+                      <ul className="space-y-3">
+                        {tier.notIncluded.map((feature, index) => (
+                          <li key={index} className="flex items-start space-x-3">
+                            <X className="w-5 h-5 text-muted-foreground flex-shrink-0 mt-0.5" />
+                            <span className="text-sm text-muted-foreground">{feature}</span>
+                          </li>
+                        ))}
+                      </ul>
                     </div>
                   )}
                   
-                  <Card className={`h-full ${tier.popular ? 'ring-2 ring-primary border-primary' : ''} hover:shadow-lg transition-all duration-300`}>
-                    <CardContent className="p-8">
-                      <div className="flex items-center gap-3 mb-4">
-                        <div className={`p-3 rounded-lg ${tier.color} text-white`}>
-                          <tier.icon className="w-6 h-6" />
-                        </div>
-                        <div>
-                          <h3 className="text-xl font-bold">{tier.name}</h3>
-                          <p className="text-sm text-muted-foreground">{tier.description}</p>
-                        </div>
-                      </div>
+                  {/* CTA Button */}
+                  <Button
+                    variant={tier.ctaVariant}
+                    className="w-full"
+                    size="lg"
+                    onClick={tier.name === 'Enterprise' ? onNavigateToContact : onStartProject}
+                  >
+                    {tier.cta}
+                    <ArrowRight className="w-4 h-4 ml-2" />
+                  </Button>
+                </CardContent>
+              </Card>
+            </motion.div>
+          ))}
+        />
+      </ContentSection>
 
-                      <div className="mb-6">
-                        <div className="flex items-baseline gap-1">
-                          <span className="text-3xl font-bold">{tier.price}</span>
-                          {tier.period && <span className="text-muted-foreground">{tier.period}</span>}
-                        </div>
-                      </div>
+      {/* Pricing Features */}
+      <ContentSection background="alt">
+        <motion.div 
+          className="text-center mb-16"
+          initial={{ opacity: 0, y: 50 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8 }}
+          viewport={{ once: true }}
+        >
+          <h2 className={sectionStyles.heading2}>
+            Why Choose Our Platform?
+          </h2>
+          <p className={sectionStyles.subheading}>
+            Built for carbon removal projects of all sizes with enterprise-grade reliability
+          </p>
+        </motion.div>
 
-                      <div className="space-y-3 mb-8">
-                        {tier.features.map((feature, idx) => (
-                          <div key={idx} className="flex items-start gap-2">
-                            <Check className="w-4 h-4 text-primary mt-0.5 flex-shrink-0" />
-                            <span className="text-sm">{feature}</span>
-                          </div>
-                        ))}
-                      </div>
+        <ThreeColumnLayout
+          columns={pricingFeatures.map((feature) => (
+            <Card key={feature.title} className="h-full hover:shadow-lg transition-all duration-300">
+              <CardContent className="p-8 text-center">
+                <feature.icon className="w-16 h-16 text-primary mx-auto mb-6" />
+                <h3 className="text-xl font-bold mb-4 text-primary">{feature.title}</h3>
+                <p className="text-muted-foreground leading-relaxed">{feature.description}</p>
+              </CardContent>
+            </Card>
+          ))}
+        />
+      </ContentSection>
 
-                      <Button 
-                        className="w-full" 
-                        variant={tier.popular ? "default" : "outline"}
-                        onClick={tier.name === "Enterprise" ? () => window.open('mailto:hello@malama.earth?subject=Enterprise Inquiry') : onStartProject}
-                      >
-                        {tier.cta}
-                        <ArrowRight className="w-4 h-4 ml-2" />
-                      </Button>
-                    </CardContent>
-                  </Card>
-                </motion.div>
-              ))}
-            </div>
-          </motion.div>
+      {/* FAQ Section */}
+      <ContentSection>
+        <motion.div 
+          className="text-center mb-16"
+          initial={{ opacity: 0, y: 50 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8 }}
+          viewport={{ once: true }}
+        >
+          <h2 className={sectionStyles.heading2}>
+            Frequently Asked Questions
+          </h2>
+          <p className={sectionStyles.subheading}>
+            Common questions about our pricing and platform
+          </p>
+        </motion.div>
 
-          {/* Buyer Pricing */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.4 }}
-            className="mb-20 my-[120px]"
-          >
-            <h2 className="text-3xl font-bold text-center mb-4">For Carbon Credit Buyers</h2>
-            <p className="text-center text-muted-foreground mb-12 max-w-2xl mx-auto">
-              High-quality, durable carbon removal credits with full transparency and blockchain verification. 
-              Prices vary based on volume, delivery timeline, and market conditions.
-            </p>
+        <div className="max-w-4xl mx-auto space-y-6">
+          {[
+            {
+              question: "Can I change my plan at any time?",
+              answer: "Yes, you can upgrade or downgrade your plan at any time. Changes take effect immediately, and we'll prorate any billing adjustments."
+            },
+            {
+              question: "Is there a setup fee?",
+              answer: "No setup fees. You only pay for the features and carbon credits you use. We believe in transparent, fair pricing."
+            },
+            {
+              question: "What payment methods do you accept?",
+              answer: "We accept all major credit cards, bank transfers, and can accommodate enterprise payment terms for larger customers."
+            },
+            {
+              question: "Do you offer custom pricing for large projects?",
+              answer: "Absolutely! For enterprise customers and large-scale projects, we offer custom pricing and dedicated support. Contact our sales team to discuss your needs."
+            },
+            {
+              question: "Is there a free trial available?",
+              answer: "Yes, we offer a 14-day free trial for Professional plans so you can test our platform before committing."
+            }
+          ].map((faq, index) => (
+            <motion.div
+              key={index}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: index * 0.1 }}
+              viewport={{ once: true }}
+            >
+              <Card className="hover:shadow-lg transition-all duration-300">
+                <CardContent className="p-6">
+                  <h3 className="text-lg font-semibold text-foreground mb-3">{faq.question}</h3>
+                  <p className="text-muted-foreground">{faq.answer}</p>
+                </CardContent>
+              </Card>
+            </motion.div>
+          ))}
+        </div>
+      </ContentSection>
 
-            <div className="grid md:grid-cols-3 gap-6">
-              {buyerPricing.map((credit, index) => (
-                <motion.div
-                  key={credit.type}
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.6, delay: 0.1 * index }}
-                >
-                  <Card className="h-full hover:shadow-lg transition-all duration-300">
-                    <CardContent className="p-6">
-                      <div className="flex items-center justify-between mb-4">
-                        <h3 className="text-lg font-bold">{credit.type}</h3>
-                        <TrendingUp className="w-5 h-5 text-primary" />
-                      </div>
-                      
-                      <div className="mb-4">
-                        <div className="flex items-baseline gap-1">
-                          <span className="text-2xl font-bold text-primary">{credit.price}</span>
-                          <span className="text-sm text-muted-foreground">{credit.unit}</span>
-                        </div>
-                        <p className="text-sm text-muted-foreground mt-1">{credit.description}</p>
-                      </div>
-
-                      <div className="space-y-2 mb-6">
-                        {credit.features.map((feature, idx) => (
-                          <div key={idx} className="flex items-start gap-2">
-                            <Check className="w-4 h-4 text-primary mt-0.5 flex-shrink-0" />
-                            <span className="text-sm">{feature}</span>
-                          </div>
-                        ))}
-                      </div>
-                    </CardContent>
-                  </Card>
-                </motion.div>
-              ))}
-            </div>
-
-            <div className="text-center mt-12">
-              <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                <Button size="lg" onClick={onBuyerOnboarding} className="px-8">
-                  <Calculator className="w-4 h-4 mr-2" />
-                  Start Buying Credits
-                </Button>
-                <Button size="lg" variant="outline" onClick={onInvestmentOnboarding} className="px-8">
-                  <TrendingUp className="w-4 h-4 mr-2" />
-                  Investment Opportunities
-                </Button>
-              </div>
-              <p className="text-sm text-muted-foreground mt-4">
-                Volume discounts available for purchases over 1,000 tCO2e annually
-              </p>
-            </div>
-          </motion.div>
-
-          {/* FAQ Section */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.6 }}
-            className="max-w-4xl mx-auto my-[220px]"
-          >
-            <h2 className="text-3xl font-bold text-center mb-12">Frequently Asked Questions</h2>
-            
-            <div className="grid md:grid-cols-2 gap-8">
-              <div className="space-y-6">
-                <div>
-                  <h3 className="font-semibold mb-2">What's included in the platform fee?</h3>
-                  <p className="text-sm text-muted-foreground">
-                    Platform fees cover dMRV infrastructure, verification processing, marketplace access, 
-                    blockchain transaction costs, and ongoing support.
-                  </p>
-                </div>
-                
-                <div>
-                  <h3 className="font-semibold mb-2">How do credit prices vary?</h3>
-                  <p className="text-sm text-muted-foreground">
-                    Prices depend on credit type, verification level, delivery timeline, purchase volume, 
-                    and current market conditions. Bulk orders receive volume discounts.
-                  </p>
-                </div>
-                
-                <div>
-                  <h3 className="font-semibold mb-2">Can I upgrade or downgrade plans?</h3>
-                  <p className="text-sm text-muted-foreground">
-                    Yes, you can change plans at any time. Upgrades take effect immediately, 
-                    while downgrades apply at your next billing cycle.
-                  </p>
-                </div>
-              </div>
-              
-              <div className="space-y-6">
-                <div>
-                  <h3 className="font-semibold mb-2">What payment methods do you accept?</h3>
-                  <p className="text-sm text-muted-foreground">
-                    We accept major credit cards, bank transfers, and cryptocurrency payments. 
-                    Enterprise customers can set up custom billing arrangements.
-                  </p>
-                </div>
-                
-                <div>
-                  <h3 className="font-semibold mb-2">Is there a money-back guarantee?</h3>
-                  <p className="text-sm text-muted-foreground">
-                    We offer a 30-day money-back guarantee for annual subscriptions. 
-                    Carbon credit purchases are final but backed by our verification guarantee.
-                  </p>
-                </div>
-                
-                <div>
-                  <h3 className="font-semibold mb-2">Do you offer custom enterprise solutions?</h3>
-                  <p className="text-sm text-muted-foreground">
-                    Yes, we provide white-label solutions, custom integrations, and dedicated infrastructure 
-                    for large organizations and institutional buyers.
-                  </p>
-                </div>
-              </div>
-            </div>
-          </motion.div>
-      </div>
+      {/* CTA Section */}
+      <CTASection
+        title="Ready to Get Started?"
+        subtitle="Join leading carbon project developers who are scaling durable carbon removal with our platform"
+        primaryButton={{
+          text: "Start Free Trial",
+          onClick: onStartProject,
+          icon: ArrowRight
+        }}
+        secondaryButton={{
+          text: "Contact Sales",
+          onClick: onNavigateToContact
+        }}
+      />
 
       {/* Footer */}
       <Footer 
@@ -456,9 +479,11 @@ const Pricing: React.FC<PricingProps> = ({
         onNavigateToPrivacy={onNavigateToPrivacy}
         onNavigateToTerms={onNavigateToTerms}
         onNavigateToCookies={onNavigateToCookies}
+        onNavigateToCarbonCreditStudio={onNavigateToCarbonCreditStudio}
+        onNavigateToCarbonCreditProtocols={onNavigateToCarbonCreditProtocols}
+        onNavigateToDMRVEngine={onNavigateToDMRVEngine}
+        onStartProject={onStartProject}
       />
     </div>
   );
-};
-
-export default Pricing;
+}

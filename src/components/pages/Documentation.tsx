@@ -1,13 +1,40 @@
 import React, { useState } from 'react';
 import { motion } from 'motion/react';
-import { Card, CardContent } from '../ui/card';
 import { Button } from '../ui/button';
+import { Card, CardContent } from '../ui/card';
 import { Input } from '../ui/input';
 import { Footer } from '../Footer';
-import { ArrowLeft, Book, Search, ExternalLink, Code, Zap, Shield, Database, Globe, FileText, Download, ArrowRight, PlayCircle, Users } from 'lucide-react';
+import { PageHeader } from '../ui/page-header';
+import { 
+  HeroSection,
+  ContentSection,
+  ThreeColumnLayout,
+  FourColumnLayout,
+  CTASection,
+  sectionStyles
+} from '../ui/page-layout';
+import { 
+  Search, 
+  BookOpen, 
+  FileText, 
+  Video, 
+  Code, 
+  ArrowRight,
+  ExternalLink,
+  CheckCircle,
+  Clock,
+  Users,
+  Globe,
+  Zap,
+  Cpu,
+  Flame,
+  Coins,
+  BarChart3,
+  Shield,
+  HelpCircle
+} from 'lucide-react';
 
 interface DocumentationProps {
-  onBackToHome: () => void;
   onNavigateToTeam?: () => void;
   onExplorePlatform?: () => void;
   onHowItWorks?: () => void;
@@ -18,10 +45,116 @@ interface DocumentationProps {
   onNavigateToPrivacy?: () => void;
   onNavigateToTerms?: () => void;
   onNavigateToCookies?: () => void;
+  onNavigateToCarbonCreditStudio?: () => void;
+  onNavigateToCarbonCreditProtocols?: () => void;
+  onNavigateToDMRVEngine?: () => void;
+  onStartProject?: () => void;
 }
 
-const Documentation: React.FC<DocumentationProps> = ({ 
-  onBackToHome,
+interface DocSection {
+  title: string;
+  description: string;
+  type: "guide" | "api" | "tutorial" | "reference";
+  icon: React.ElementType;
+  color: string;
+  articles: Array<{
+    title: string;
+    description: string;
+    readTime: string;
+    difficulty: "Beginner" | "Intermediate" | "Advanced";
+  }>;
+}
+
+const documentationSections: DocSection[] = [
+  {
+    title: "Getting Started",
+    description: "Essential guides to get your carbon removal project up and running",
+    type: "guide",
+    icon: BookOpen,
+    color: "bg-primary",
+    articles: [
+      { title: "Quick Start Guide", description: "Set up your first project in under 10 minutes", readTime: "10 min", difficulty: "Beginner" },
+      { title: "Project Onboarding", description: "Complete step-by-step project setup process", readTime: "30 min", difficulty: "Beginner" },
+      { title: "First Carbon Credits", description: "Generate and verify your first carbon credits", readTime: "45 min", difficulty: "Beginner" }
+    ]
+  },
+  {
+    title: "dMRV Engine",
+    description: "Learn how to use our AI-powered measurement and verification tools",
+    type: "tutorial",
+    icon: Cpu,
+    color: "bg-secondary",
+    articles: [
+      { title: "Sensor Deployment", description: "Install and configure monitoring sensors", readTime: "20 min", difficulty: "Intermediate" },
+      { title: "Data Validation", description: "Set up automated data quality checks", readTime: "25 min", difficulty: "Intermediate" },
+      { title: "Verification Workflows", description: "Configure custom verification processes", readTime: "40 min", difficulty: "Advanced" }
+    ]
+  },
+  {
+    title: "Carbon Credit Protocols",
+    description: "Implement various carbon removal methodologies on our platform",
+    type: "guide",
+    icon: Flame,
+    color: "bg-accent",
+    articles: [
+      { title: "Biochar Production", description: "Complete biochar carbon removal guide", readTime: "35 min", difficulty: "Intermediate" },
+      { title: "Rock Weathering", description: "Enhanced weathering implementation", readTime: "40 min", difficulty: "Advanced" },
+      { title: "Afforestation", description: "Tree planting and forest management", readTime: "30 min", difficulty: "Intermediate" }
+    ]
+  },
+  {
+    title: "Carbon Credit Studio",
+    description: "Issue, trade, and manage your carbon credits on the blockchain",
+    type: "tutorial",
+    icon: Coins,
+    color: "bg-primary",
+    articles: [
+      { title: "Credit Issuance", description: "Mint your first carbon credits", readTime: "25 min", difficulty: "Intermediate" },
+      { title: "Marketplace Trading", description: "List and trade credits on our exchange", readTime: "30 min", difficulty: "Intermediate" },
+      { title: "Portfolio Management", description: "Track and optimize your credit portfolio", readTime: "35 min", difficulty: "Advanced" }
+    ]
+  },
+  {
+    title: "API Reference",
+    description: "Integrate our platform with your existing systems and workflows",
+    type: "api",
+    icon: Code,
+    color: "bg-secondary",
+    articles: [
+      { title: "Authentication", description: "Set up API keys and authentication", readTime: "15 min", difficulty: "Intermediate" },
+      { title: "Data Endpoints", description: "Access real-time project data via API", readTime: "25 min", difficulty: "Intermediate" },
+      { title: "Webhook Integration", description: "Set up automated notifications", readTime: "30 min", difficulty: "Advanced" }
+    ]
+  },
+  {
+    title: "Best Practices",
+    description: "Learn from our experts and optimize your carbon removal projects",
+    type: "guide",
+    icon: Shield,
+    color: "bg-accent",
+    articles: [
+      { title: "Quality Assurance", description: "Ensure your credits meet market standards", readTime: "20 min", difficulty: "Intermediate" },
+      { title: "Cost Optimization", description: "Reduce verification and compliance costs", readTime: "25 min", difficulty: "Intermediate" },
+      { title: "Scaling Strategies", description: "Grow your project from pilot to production", readTime: "35 min", difficulty: "Advanced" }
+    ]
+  }
+];
+
+const quickActions = [
+  { title: "Dashboard Navigation", description: "Navigating the platform interface", type: "guide" },
+  { title: "Project Setup", description: "Creating and configuring projects", type: "guide" },
+  { title: "Credit Verification", description: "Understanding the verification process", type: "tutorial" },
+  { title: "API Integration", description: "Connecting external systems", type: "api" }
+];
+
+const supportResources = [
+  { title: "Video Tutorials", description: "Step-by-step video guides", icon: Video, href: "#" },
+  { title: "Community Forum", description: "Connect with other developers", icon: Users, href: "#" },
+  { title: "Live Chat Support", description: "Get help in real-time", icon: HelpCircle, href: "#" },
+  { title: "Email Support", description: "Detailed technical assistance", icon: ExternalLink, href: "#" }
+];
+
+export default function Documentation({ 
   onNavigateToTeam,
   onExplorePlatform,
   onHowItWorks,
@@ -31,323 +164,323 @@ const Documentation: React.FC<DocumentationProps> = ({
   onNavigateToContact,
   onNavigateToPrivacy,
   onNavigateToTerms,
-  onNavigateToCookies
-}) => {
+  onNavigateToCookies,
+  onNavigateToCarbonCreditStudio,
+  onNavigateToCarbonCreditProtocols,
+  onNavigateToDMRVEngine,
+  onStartProject
+}: DocumentationProps) {
   const [searchQuery, setSearchQuery] = useState('');
+  const [selectedType, setSelectedType] = useState<string>('all');
 
-  const documentationSections = [
-    {
-      title: "Getting Started",
-      icon: Zap,
-      description: "Quick start guides and platform overview",
-      items: [
-        { title: "Platform Overview", description: "Understanding Mālama Labs ecosystem", type: "guide" },
-        { title: "Account Setup", description: "Creating and configuring your account", type: "guide" },
-        { title: "First Project", description: "Step-by-step project creation", type: "tutorial" },
-        { title: "Dashboard Navigation", description: "Navigating the platform interface", type: "guide" }
-      ]
-    },
-    {
-      title: "dMRV Engine",
-      icon: Database,
-      description: "Digital Measurement, Reporting & Verification system",
-      items: [
-        { title: "IoT Sensor Deployment", description: "Installing and configuring monitoring sensors", type: "guide" },
-        { title: "Data Collection", description: "Understanding automated data collection", type: "reference" },
-        { title: "AI Validation", description: "How AI systems verify your data", type: "reference" },
-        { title: "Real-time Monitoring", description: "Accessing live project data", type: "tutorial" }
-      ]
-    },
-    {
-      title: "API Documentation",
-      icon: Code,
-      description: "Technical integration guides and API references",
-      items: [
-        { title: "REST API Reference", description: "Complete API endpoint documentation", type: "reference" },
-        { title: "Authentication", description: "API keys and authentication methods", type: "guide" },
-        { title: "Webhooks", description: "Real-time event notifications", type: "reference" },
-        { title: "SDKs & Libraries", description: "Official SDKs for popular languages", type: "reference" }
-      ]
-    },
-    {
-      title: "Carbon Credit Protocols",
-      icon: FileText,
-      description: "Methodology guides and compliance requirements",
-      items: [
-        { title: "Biochar Protocol", description: "LC02 credit generation methodology", type: "protocol" },
-        { title: "Enhanced Rock Weathering", description: "ERW verification standards", type: "protocol" },
-        { title: "Agroforestry Standards", description: "Tree-based sequestration protocols", type: "protocol" },
-        { title: "Blue Carbon Guidelines", description: "Coastal restoration methodologies", type: "protocol" }
-      ]
-    },
-    {
-      title: "Verification & Compliance",
-      icon: Shield,
-      description: "Understanding verification processes and standards",
-      items: [
-        { title: "Verification Process", description: "How projects get verified", type: "guide" },
-        { title: "Compliance Standards", description: "Meeting international standards", type: "reference" },
-        { title: "Third-party Audits", description: "External verification requirements", type: "guide" },
-        { title: "Blockchain Provenance", description: "Immutable credit tracking", type: "reference" }
-      ]
-    },
-    {
-      title: "Marketplace & Trading",
-      icon: Globe,
-      description: "Buying and selling carbon credits",
-      items: [
-        { title: "Listing Credits", description: "How to list credits for sale", type: "guide" },
-        { title: "Buyer Onboarding", description: "Setting up a buyer account", type: "guide" },
-        { title: "Trading Interface", description: "Using the marketplace platform", type: "tutorial" },
-        { title: "Settlement & Delivery", description: "Credit transfer and delivery", type: "guide" }
-      ]
-    }
-  ];
+  const filteredSections = documentationSections.filter(section => 
+    selectedType === 'all' || section.type === selectedType
+  );
 
-  const quickLinks = [
-    { title: "API Status", url: "#", icon: ExternalLink },
-    { title: "Release Notes", url: "#", icon: FileText },
-    { title: "Developer Forum", url: "#", icon: ExternalLink },
-    { title: "SDK Downloads", url: "#", icon: Download }
-  ];
-
-  const getTypeIcon = (type: string) => {
-    switch (type) {
-      case 'guide': return Book;
-      case 'tutorial': return Zap;
-      case 'reference': return Database;
-      case 'protocol': return Shield;
-      default: return FileText;
-    }
-  };
-
-  const getTypeColor = (type: string) => {
-    switch (type) {
-      case 'guide': return 'bg-blue-500';
-      case 'tutorial': return 'bg-green-500';
-      case 'reference': return 'bg-purple-500';
-      case 'protocol': return 'bg-orange-500';
-      default: return 'bg-gray-500';
-    }
-  };
-
-  const filteredSections = documentationSections.map(section => ({
-    ...section,
-    items: section.items.filter(item =>
-      item.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      item.description.toLowerCase().includes(searchQuery.toLowerCase())
+  const searchResults = documentationSections.flatMap(section =>
+    section.articles.filter(article =>
+      article.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      article.description.toLowerCase().includes(searchQuery.toLowerCase())
     )
-  })).filter(section => section.items.length > 0);
+  );
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-primary/5 via-background to-secondary/5">
-      {/* Navigation */}
-      <div className="fixed top-0 left-0 right-0 z-50 bg-background border-b border-border shadow-lg">
-        <div className="container mx-auto px-6 py-6">
-          <Button
-            variant="ghost"
-            onClick={onBackToHome}
-            className="flex items-center gap-3 hover:bg-accent/50 text-base font-medium px-6 py-3 rounded-xl transition-all duration-300"
+    <div className="min-h-screen bg-background">
+      {/* Page Header */}
+      <PageHeader
+        onNavigateToPage={(page) => {
+          // Handle navigation based on page
+          if (page === 'explore-platform') onExplorePlatform?.();
+          if (page === 'how-it-works') onHowItWorks?.();
+          if (page === 'our-team') onNavigateToTeam?.();
+          if (page === 'pricing') onNavigateToPricing?.();
+          if (page === 'contact') onNavigateToContact?.();
+          if (page === 'blog') onNavigateToBlog?.();
+          if (page === 'documentation') onNavigateToDocumentation?.();
+          if (page === 'faq') onNavigateToContact?.();
+          if (page === 'careers') onNavigateToContact?.();
+          if (page === 'about') onExplorePlatform?.();
+          if (page === 'dmrv-engine') onNavigateToDMRVEngine?.();
+          if (page === 'carbon-credit-studio') onNavigateToCarbonCreditStudio?.();
+          if (page === 'carbon-credit-protocols') onNavigateToCarbonCreditProtocols?.();
+          if (page === 'onboarding') onStartProject?.();
+        }}
+        onStartProject={onStartProject || (() => {})}
+        onSignIn={() => {}}
+        onRegister={() => {}}
+        showBackToHome={true}
+        onNavigateToHome={() => {}}
+      />
+
+      {/* Hero Section */}
+      <HeroSection
+        title="Documentation"
+        subtitle="Comprehensive guides, tutorials, and API references to help you succeed with carbon removal projects"
+      >
+        <div className="flex flex-col sm:flex-row gap-4 justify-center">
+          <Button 
+            size="lg"
+            onClick={onStartProject}
+            className={sectionStyles.button}
           >
-            <ArrowLeft className="w-5 h-5" />
-            Back to Home
+            Start Your Project
+            <ArrowRight className="w-5 h-5 mr-2" />
+          </Button>
+          <Button 
+            variant="outline" 
+            size="lg"
+            onClick={onNavigateToContact}
+            className={sectionStyles.button}
+          >
+            Get Support
+            <HelpCircle className="w-5 h-5 mr-2" />
           </Button>
         </div>
-      </div>
+      </HeroSection>
 
-      {/* Spacer to ensure content doesn't overlap with fixed nav */}
-      <div className="h-24"></div>
-      
-      {/* Hero Section */}
-      <section className="py-20 px-6 bg-gradient-to-br from-primary/5 via-secondary/5 to-background">
-        <div className="max-w-7xl mx-auto">
-          <motion.div 
-            className="text-center mb-16"
-            initial={{ opacity: 0, y: 50 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-          >
-            <h1 className="text-5xl md:text-7xl mb-6 text-primary font-bold">
-              Documentation
-            </h1>
-            <p className="text-xl md:text-2xl text-muted-foreground max-w-3xl mx-auto mb-8">
-              Comprehensive guides, API references, and technical documentation to help you build, integrate, and scale with Mālama Labs.
-            </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Button 
-                size="lg"
-                className="hover:scale-105 transition-transform duration-300"
-              >
-                <Book className="w-5 h-5 mr-2" />
-                Get Started
-              </Button>
-              <Button 
-                variant="outline" 
-                size="lg"
-                className="hover:scale-105 transition-transform duration-300"
-              >
-                API Reference
-                <ArrowRight className="w-5 h-5 ml-2" />
-              </Button>
-            </div>
-          </motion.div>
+      {/* Search and Filters */}
+      <ContentSection>
+        <motion.div 
+          className="text-center mb-16"
+          initial={{ opacity: 0, y: 50 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8 }}
+          viewport={{ once: true }}
+        >
+          <h2 className={sectionStyles.heading2}>
+            Find What You Need
+          </h2>
+          <p className={sectionStyles.subheading}>
+            Search our documentation or browse by category to find the information you need
+          </p>
+        </motion.div>
 
-          {/* Benefits Grid */}
-          <motion.div 
-            className="grid grid-cols-2 md:grid-cols-4 gap-6"
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.2 }}
-          >
-            <Card className="text-center border-none bg-card/50 backdrop-blur-sm">
-              <CardContent className="p-6">
-                <FileText className="w-8 h-8 text-primary mx-auto mb-2" />
-                <div className="text-2xl font-bold text-primary mb-1">100+ Guides</div>
-                <div className="text-sm text-muted-foreground">Comprehensive documentation library</div>
-              </CardContent>
-            </Card>
-            <Card className="text-center border-none bg-card/50 backdrop-blur-sm">
-              <CardContent className="p-6">
-                <Code className="w-8 h-8 text-primary mx-auto mb-2" />
-                <div className="text-2xl font-bold text-primary mb-1">REST API</div>
-                <div className="text-sm text-muted-foreground">Complete API reference and examples</div>
-              </CardContent>
-            </Card>
-            <Card className="text-center border-none bg-card/50 backdrop-blur-sm">
-              <CardContent className="p-6">
-                <PlayCircle className="w-8 h-8 text-primary mx-auto mb-2" />
-                <div className="text-2xl font-bold text-primary mb-1">Tutorials</div>
-                <div className="text-sm text-muted-foreground">Step-by-step implementation guides</div>
-              </CardContent>
-            </Card>
-            <Card className="text-center border-none bg-card/50 backdrop-blur-sm">
-              <CardContent className="p-6">
-                <Users className="w-8 h-8 text-primary mx-auto mb-2" />
-                <div className="text-2xl font-bold text-primary mb-1">Community</div>
-                <div className="text-sm text-muted-foreground">Developer support and forums</div>
-              </CardContent>
-            </Card>
-          </motion.div>
+        {/* Search Bar */}
+        <div className="max-w-2xl mx-auto mb-12">
+          <div className="relative">
+            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-muted-foreground" />
+            <Input
+              placeholder="Search documentation..."
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              className="pl-10 h-14 text-lg border-2 border-border focus:border-primary"
+            />
+          </div>
         </div>
-      </section>
 
-      <div className="container mx-auto px-8 py-8">
-
-          <div className="grid lg:grid-cols-2 gap-8">
-            {/* Sidebar - Quick Links */}
-            <motion.div
-              initial={{ opacity: 0, x: -20 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.6, delay: 0.2 }}
-              className="lg:col-span-1"
+        {/* Type Filters */}
+        <div className="flex flex-wrap justify-center gap-3 mb-12">
+          {['all', 'guide', 'tutorial', 'api', 'reference'].map((type) => (
+            <Button
+              key={type}
+              variant={selectedType === type ? "default" : "outline"}
+              onClick={() => setSelectedType(type)}
+              className="capitalize"
             >
-              <Card className="sticky top-24">
-                <CardContent className="p-6">
-                  <h2 className="text-lg font-bold mb-4">Quick Links</h2>
-                  <div className="space-y-2">
-                    {quickLinks.map((link, index) => (
-                      <a
-                        key={index}
-                        href={link.url}
-                        className="flex items-center gap-2 p-2 rounded-lg hover:bg-accent transition-colors"
-                      >
-                        <link.icon className="w-4 h-4 text-primary" />
-                        <span className="text-sm">{link.title}</span>
-                      </a>
+              {type === 'all' ? 'All Types' : type}
+            </Button>
+          ))}
+        </div>
+
+        {/* Search Results */}
+        {searchQuery && (
+          <div className="mb-16">
+            <h3 className="text-2xl font-bold mb-6 text-center">
+              Search Results for "{searchQuery}"
+            </h3>
+            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {searchResults.map((article, index) => (
+                <motion.div
+                  key={index}
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.6, delay: index * 0.1 }}
+                >
+                  <Card className="h-full hover:shadow-lg transition-all duration-300">
+                    <CardContent className="p-6">
+                      <h4 className="text-lg font-semibold mb-2 text-primary">{article.title}</h4>
+                      <p className="text-sm text-muted-foreground mb-4">{article.description}</p>
+                      <div className="flex items-center justify-between text-xs text-muted-foreground">
+                        <span>{article.readTime}</span>
+                        <span className={`px-2 py-1 rounded ${
+                          article.difficulty === 'Beginner' ? 'bg-green-100 text-green-800' :
+                          article.difficulty === 'Intermediate' ? 'bg-yellow-100 text-yellow-800' :
+                          'bg-red-100 text-red-800'
+                        }`}>
+                          {article.difficulty}
+                        </span>
+                      </div>
+                    </CardContent>
+                  </Card>
+                </motion.div>
+              ))}
+            </div>
+          </div>
+        )}
+      </ContentSection>
+
+      {/* Documentation Sections */}
+      <ContentSection background="alt">
+        <motion.div 
+          className="text-center mb-16"
+          initial={{ opacity: 0, y: 50 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8 }}
+          viewport={{ once: true }}
+        >
+          <h2 className={sectionStyles.heading2}>
+            Browse by Category
+          </h2>
+          <p className={sectionStyles.subheading}>
+            Organized documentation to help you find the right information quickly
+          </p>
+        </motion.div>
+
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+          {filteredSections.map((section, index) => (
+            <motion.div
+              key={section.title}
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: index * 0.1 }}
+              viewport={{ once: true }}
+            >
+              <Card className="h-full hover:shadow-xl transition-all duration-300">
+                <CardContent className="p-8">
+                  <div className={`w-16 h-16 ${section.color} rounded-xl flex items-center justify-center mx-auto mb-6`}>
+                    <section.icon className="w-8 h-8 text-white" />
+                  </div>
+                  
+                  <h3 className="text-xl font-bold mb-3 text-primary text-center">{section.title}</h3>
+                  <p className="text-muted-foreground text-center mb-6">{section.description}</p>
+                  
+                  <div className="space-y-3">
+                    {section.articles.map((article, articleIndex) => (
+                      <div key={articleIndex} className="p-3 bg-muted/50 rounded-lg hover:bg-muted/70 transition-colors duration-200">
+                        <h4 className="font-semibold text-foreground mb-1">{article.title}</h4>
+                        <p className="text-sm text-muted-foreground mb-2">{article.description}</p>
+                        <div className="flex items-center justify-between text-xs text-muted-foreground">
+                          <span>{article.readTime}</span>
+                          <span className={`px-2 py-1 rounded ${
+                            article.difficulty === 'Beginner' ? 'bg-green-100 text-green-800' :
+                            article.difficulty === 'Intermediate' ? 'bg-yellow-100 text-yellow-800' :
+                            'bg-red-100 text-red-800'
+                          }`}>
+                            {article.difficulty}
+                          </span>
+                        </div>
+                      </div>
                     ))}
                   </div>
-
-                  <div className="mt-8">
-                    <h3 className="font-semibold mb-3">Need Help?</h3>
-                    <div className="space-y-2">
-                      <Button variant="outline" size="sm" className="w-full justify-start">
-                        <ExternalLink className="w-4 h-4 mr-2" />
-                        Contact Support
-                      </Button>
-                      <Button variant="outline" size="sm" className="w-full justify-start">
-                        <Book className="w-4 h-4 mr-2" />
-                        Schedule Demo
-                      </Button>
-                    </div>
-                  </div>
+                  
+                  <Button
+                    variant="outline"
+                    className="w-full mt-6"
+                    onClick={() => {}}
+                  >
+                    View All {section.title}
+                    <ArrowRight className="w-4 h-4 ml-2" />
+                  </Button>
                 </CardContent>
               </Card>
             </motion.div>
+          ))}
+        </div>
+      </ContentSection>
 
-            {/* Main Content */}
-            <div className="lg:col-span-1">
-              <div className="space-y-12">
-                {(searchQuery ? filteredSections : documentationSections).map((section, sectionIndex) => (
-                  <motion.div
-                    key={section.title}
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.6, delay: 0.1 * sectionIndex }}
-                  >
-                    <div className="flex items-center gap-3 mb-6">
-                      <div className="p-3 bg-primary/10 rounded-lg">
-                        <section.icon className="w-6 h-6 text-primary" />
-                      </div>
-                      <div>
-                        <h2 className="text-2xl font-bold">{section.title}</h2>
-                        <p className="text-muted-foreground">{section.description}</p>
-                      </div>
-                    </div>
+      {/* Quick Actions */}
+      <ContentSection>
+        <motion.div 
+          className="text-center mb-16"
+          initial={{ opacity: 0, y: 50 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8 }}
+          viewport={{ once: true }}
+        >
+          <h2 className={sectionStyles.heading2}>
+            Quick Actions
+          </h2>
+          <p className={sectionStyles.subheading}>
+            Get started quickly with these essential guides
+          </p>
+        </motion.div>
 
-                    <div className="grid md:grid-cols-2 gap-4">
-                      {section.items.map((item, itemIndex) => {
-                        const TypeIcon = getTypeIcon(item.type);
-                        return (
-                          <motion.div
-                            key={itemIndex}
-                            whileHover={{ scale: 1.02 }}
-                            transition={{ duration: 0.2 }}
-                          >
-                            <Card className="h-full hover:shadow-md transition-all duration-300 cursor-pointer">
-                              <CardContent className="p-6">
-                                <div className="flex items-start gap-3">
-                                  <div className={`p-2 rounded-lg ${getTypeColor(item.type)} text-white`}>
-                                    <TypeIcon className="w-4 h-4" />
-                                  </div>
-                                  <div className="flex-1">
-                                    <h3 className="font-semibold mb-1">{item.title}</h3>
-                                    <p className="text-sm text-muted-foreground mb-3">
-                                      {item.description}
-                                    </p>
-                                    <div className="flex items-center justify-between">
-                                      <span className="text-xs px-2 py-1 bg-secondary/50 rounded-full capitalize">
-                                        {item.type}
-                                      </span>
-                                      <ExternalLink className="w-4 h-4 text-muted-foreground" />
-                                    </div>
-                                  </div>
-                                </div>
-                              </CardContent>
-                            </Card>
-                          </motion.div>
-                        );
-                      })}
-                    </div>
-                  </motion.div>
-                ))}
-              </div>
-
-              {searchQuery && filteredSections.length === 0 && (
-                <motion.div
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  className="text-center py-12"
+        <FourColumnLayout
+          columns={quickActions.map((action) => (
+            <Card key={action.title} className="h-full hover:shadow-lg transition-all duration-300">
+              <CardContent className="p-6 text-center">
+                <div className="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-4">
+                  <BookOpen className="w-6 h-6 text-primary" />
+                </div>
+                <h3 className="text-lg font-semibold mb-2 text-primary">{action.title}</h3>
+                <p className="text-sm text-muted-foreground mb-4">{action.description}</p>
+                <Button
+                  variant="outline"
+                  size="sm"
+                  className="w-full"
+                  onClick={() => {}}
                 >
-                  <Search className="w-16 h-16 text-muted-foreground mx-auto mb-4" />
-                  <h3 className="text-xl font-semibold mb-2">No results found</h3>
-                  <p className="text-muted-foreground">
-                    Try adjusting your search terms or browse our categories above.
-                  </p>
-                </motion.div>
-              )}
-            </div>
-          </div>
-      </div>
+                  Read Guide
+                  <ArrowRight className="w-4 h-4 ml-2" />
+                </Button>
+              </CardContent>
+            </Card>
+          ))}
+        />
+      </ContentSection>
+
+      {/* Support Resources */}
+      <ContentSection background="gradient">
+        <motion.div 
+          className="text-center mb-16"
+          initial={{ opacity: 0, y: 50 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8 }}
+          viewport={{ once: true }}
+        >
+          <h2 className={sectionStyles.heading2}>
+            Need Help?
+          </h2>
+          <p className={sectionStyles.subheading}>
+            Multiple ways to get support and learn from our team
+          </p>
+        </motion.div>
+
+        <ThreeColumnLayout
+          columns={supportResources.map((resource) => (
+            <Card key={resource.title} className="h-full hover:shadow-lg transition-all duration-300">
+              <CardContent className="p-8 text-center">
+                <resource.icon className="w-16 h-16 text-primary mx-auto mb-6" />
+                <h3 className="text-xl font-bold mb-4 text-primary">{resource.title}</h3>
+                <p className="text-muted-foreground leading-relaxed mb-6">{resource.description}</p>
+                <Button
+                  variant="outline"
+                  className="w-full"
+                  onClick={() => {}}
+                >
+                  Access {resource.title}
+                  <ExternalLink className="w-4 h-4 ml-2" />
+                </Button>
+              </CardContent>
+            </Card>
+          ))}
+        />
+      </ContentSection>
+
+      {/* CTA Section */}
+      <CTASection
+        title="Ready to Build Something Amazing?"
+        subtitle="Start your carbon removal project today with our comprehensive platform and documentation"
+        primaryButton={{
+          text: "Start Your Project",
+          onClick: onStartProject,
+          icon: ArrowRight
+        }}
+        secondaryButton={{
+          text: "Get Support",
+          onClick: onNavigateToContact
+        }}
+      />
 
       {/* Footer */}
       <Footer 
@@ -361,9 +494,11 @@ const Documentation: React.FC<DocumentationProps> = ({
         onNavigateToPrivacy={onNavigateToPrivacy}
         onNavigateToTerms={onNavigateToTerms}
         onNavigateToCookies={onNavigateToCookies}
+        onNavigateToCarbonCreditStudio={onNavigateToCarbonCreditStudio}
+        onNavigateToCarbonCreditProtocols={onNavigateToCarbonCreditProtocols}
+        onNavigateToDMRVEngine={onNavigateToDMRVEngine}
+        onStartProject={onStartProject}
       />
     </div>
   );
-};
-
-export default Documentation;
+}

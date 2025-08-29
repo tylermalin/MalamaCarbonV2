@@ -2,6 +2,8 @@ import React from 'react';
 import { motion } from 'motion/react';
 import { Button } from '../ui/button';
 import { Card, CardContent } from '../ui/card';
+import { Footer } from '../Footer';
+import { PageHeader } from '../ui/page-header';
 import { 
   Coins, 
   Link2, 
@@ -177,11 +179,64 @@ const pricingTiers = [
 interface CarbonCreditStudioProps {
   onStartProject?: () => void;
   onBackToPlatform?: () => void;
+  onNavigateToTeam?: () => void;
+  onExplorePlatform?: () => void;
+  onHowItWorks?: () => void;
+  onNavigateToPricing?: () => void;
+  onNavigateToDocumentation?: () => void;
+  onNavigateToBlog?: () => void;
+  onNavigateToContact?: () => void;
+  onNavigateToPrivacy?: () => void;
+  onNavigateToTerms?: () => void;
+  onNavigateToCookies?: () => void;
+  onNavigateToCarbonCreditStudio?: () => void;
+  onNavigateToCarbonCreditProtocols?: () => void;
 }
 
-export function CarbonCreditStudio({ onStartProject, onBackToPlatform }: CarbonCreditStudioProps) {
+export function CarbonCreditStudio({ 
+  onStartProject, 
+  onBackToPlatform,
+  onNavigateToTeam,
+  onExplorePlatform,
+  onHowItWorks,
+  onNavigateToPricing,
+  onNavigateToDocumentation,
+  onNavigateToBlog,
+  onNavigateToContact,
+  onNavigateToPrivacy,
+  onNavigateToTerms,
+  onNavigateToCookies,
+  onNavigateToCarbonCreditStudio,
+  onNavigateToCarbonCreditProtocols
+}: CarbonCreditStudioProps) {
   return (
     <div className="min-h-screen bg-background">
+      {/* Page Header */}
+      <PageHeader
+        onNavigateToPage={(page) => {
+          // Handle navigation based on page
+          if (page === 'explore-platform') onExplorePlatform?.();
+          if (page === 'how-it-works') onHowItWorks?.();
+          if (page === 'our-team') onNavigateToTeam?.();
+          if (page === 'pricing') onNavigateToPricing?.();
+          if (page === 'contact') onNavigateToContact?.();
+          if (page === 'blog') onNavigateToBlog?.();
+          if (page === 'documentation') onNavigateToDocumentation?.();
+          if (page === 'faq') onNavigateToContact?.();
+          if (page === 'careers') onNavigateToContact?.();
+          if (page === 'about') onExplorePlatform?.();
+          if (page === 'dmrv-engine') onExplorePlatform?.();
+          if (page === 'carbon-credit-studio') onNavigateToCarbonCreditStudio?.();
+          if (page === 'carbon-credit-protocols') onNavigateToCarbonCreditProtocols?.();
+          if (page === 'onboarding') onStartProject?.();
+        }}
+        onStartProject={onStartProject || (() => {})}
+        onSignIn={() => {}}
+        onRegister={() => {}}
+        showBackToHome={true}
+        onNavigateToHome={onBackToPlatform}
+      />
+
       {/* Hero Section */}
       <section className="py-20 px-6 bg-gradient-to-br from-primary/5 via-secondary/5 to-background">
         <div className="max-w-7xl mx-auto">
@@ -578,6 +633,22 @@ export function CarbonCreditStudio({ onStartProject, onBackToPlatform }: CarbonC
           </motion.div>
         </div>
       </section>
+
+      {/* Footer */}
+      <Footer 
+        onNavigateToTeam={onNavigateToTeam}
+        onExplorePlatform={onExplorePlatform}
+        onHowItWorks={onHowItWorks}
+        onNavigateToPricing={onNavigateToPricing}
+        onNavigateToDocumentation={onNavigateToDocumentation}
+        onNavigateToBlog={onNavigateToBlog}
+        onNavigateToContact={onNavigateToContact}
+        onNavigateToPrivacy={onNavigateToPrivacy}
+        onNavigateToTerms={onNavigateToTerms}
+        onNavigateToCookies={onNavigateToCookies}
+        onNavigateToCarbonCreditStudio={onNavigateToCarbonCreditStudio}
+        onNavigateToCarbonCreditProtocols={onNavigateToCarbonCreditProtocols}
+      />
     </div>
   );
 }
