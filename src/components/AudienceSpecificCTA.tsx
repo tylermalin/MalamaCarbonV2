@@ -21,7 +21,7 @@ export function AudienceSpecificCTA({
       subtitle: "Build tools on our APIs",
       description: "Access comprehensive APIs for carbon measurement, verification, and trading. Create innovative climate solutions with our developer-friendly platform.",
       icon: Code,
-      color: "bg-green-800",
+      color: "bg-green-900",
       action: onStartProject,
       buttonText: "Get Started"
     },
@@ -30,7 +30,7 @@ export function AudienceSpecificCTA({
       subtitle: "Purchase LC02 with transparency",
       description: "Buy high-quality, verified carbon removal credits with complete traceability and blockchain-verified provenance.",
       icon: ShoppingCart,
-      color: "bg-green-800",
+      color: "bg-green-900",
       action: onPurchaseCredits,
       buttonText: "Get Started"
     },
@@ -39,7 +39,7 @@ export function AudienceSpecificCTA({
       subtitle: "Help us scale",
       description: "Join our network of technology partners, research institutions, and climate organizations to accelerate global carbon removal.",
       icon: Handshake,
-      color: "bg-green-800",
+      color: "bg-green-900",
       action: onPartnerWithUs,
       buttonText: "Get Started"
     }
@@ -74,7 +74,10 @@ export function AudienceSpecificCTA({
             >
               <Card className="h-full hover:shadow-xl transition-all duration-300 border-none bg-card/80 backdrop-blur-sm">
                 <CardContent className="p-8 text-center">
-                  <div className={`w-16 h-16 ${audience.color} rounded-2xl flex items-center justify-center mx-auto mb-6`}>
+                  <div 
+                    className={`w-16 h-16 ${audience.color} rounded-2xl flex items-center justify-center mx-auto mb-6`}
+                    style={{ backgroundColor: '#166534' }}
+                  >
                     <audience.icon className="w-8 h-8 text-white" />
                   </div>
                   
