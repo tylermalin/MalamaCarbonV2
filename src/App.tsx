@@ -203,7 +203,6 @@ export default function App() {
           onNavigateToCarbonCreditStudio={() => setCurrentPage('carbon-credit-studio')}
           onNavigateToCarbonCreditProtocols={() => setCurrentPage('carbon-credit-protocols')}
           onNavigateToDMRVEngine={() => setCurrentPage('dmrv-engine')}
-          onStartProject={handleStartProject}
           onNavigateToHome={handleNavigateToHome}
         />
       ) : currentPage === 'how-it-works' ? (
@@ -222,7 +221,6 @@ export default function App() {
           onNavigateToCarbonCreditStudio={() => setCurrentPage('carbon-credit-studio')}
           onNavigateToCarbonCreditProtocols={() => setCurrentPage('carbon-credit-protocols')}
           onNavigateToDMRVEngine={() => setCurrentPage('dmrv-engine')}
-          onStartProject={handleStartProject}
           onNavigateToHome={handleNavigateToHome}
         />
       ) : currentPage === 'dmrv-engine' ? (
