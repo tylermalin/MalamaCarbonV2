@@ -170,7 +170,7 @@ export default function Contact({
           <Button 
             size="lg"
             onClick={onStartProject}
-            className={sectionStyles.button}
+            className="bg-primary hover:bg-primary/90 text-white px-8 py-4 text-lg font-semibold transition-all duration-300"
           >
             Start Your Project
             <Send className="w-5 h-5 mr-2" />
@@ -179,7 +179,7 @@ export default function Contact({
             variant="outline" 
             size="lg"
             onClick={() => {}}
-            className={sectionStyles.button}
+            className="border-white text-white hover:bg-white hover:text-primary px-8 py-4 text-lg font-semibold transition-all duration-300"
           >
             Schedule Demo
             <Calendar className="w-5 h-5 mr-2" />
@@ -199,7 +199,7 @@ export default function Contact({
                 </p>
               </div>
               
-              <Card className="shadow-xl hover:shadow-2xl transition-all duration-300">
+              <Card className="border-0">
                 <CardContent className="p-12">
                   <form onSubmit={handleSubmit} className="space-y-8">
                     <div className="grid md:grid-cols-2 gap-8">
@@ -213,7 +213,7 @@ export default function Contact({
                           onChange={(e) => handleInputChange('name', e.target.value)}
                           placeholder="Enter your full name"
                           required
-                          className="h-14 text-base bg-input-background focus:ring-2 focus:ring-primary/50 transition-all duration-300"
+                          className="h-14 text-base bg-input-background focus:ring-0 border-0"
                           style={{ borderRadius: '0' }}
                         />
                       </div>
@@ -229,7 +229,7 @@ export default function Contact({
                           onChange={(e) => handleInputChange('email', e.target.value)}
                           placeholder="Enter your email address"
                           required
-                          className="h-14 text-base bg-input-background focus:ring-2 focus:ring-primary/50 transition-all duration-300"
+                          className="h-14 text-base bg-input-background focus:ring-0 border-0"
                           style={{ borderRadius: '0' }}
                         />
                       </div>
@@ -245,7 +245,7 @@ export default function Contact({
                           value={formData.company}
                           onChange={(e) => handleInputChange('company', e.target.value)}
                           placeholder="Enter company name"
-                          className="h-14 text-base bg-input-background focus:ring-2 focus:ring-primary/50 transition-all duration-300"
+                          className="h-14 text-base bg-input-background focus:ring-0 border-0"
                           style={{ borderRadius: '0' }}
                         />
                       </div>
@@ -255,7 +255,7 @@ export default function Contact({
                           Project Type
                         </Label>
                         <Select value={formData.projectType} onValueChange={(value) => handleInputChange('projectType', value)}>
-                          <SelectTrigger className="h-14 text-base bg-input-background focus:ring-2 focus:ring-primary/50 transition-all duration-300" style={{ borderRadius: '0' }}>
+                          <SelectTrigger className="h-14 text-base bg-input-background focus:ring-0 border-0" style={{ borderRadius: '0' }}>
                             <SelectValue placeholder="Select project type" />
                           </SelectTrigger>
                           <SelectContent>
@@ -281,7 +281,7 @@ export default function Contact({
                         placeholder="Tell us about your carbon removal project, goals, and how we can help..."
                         required
                         rows={8}
-                        className="text-base bg-input-background focus:ring-2 focus:ring-primary/50 transition-all duration-300 resize-none"
+                        className="text-base bg-input-background focus:ring-0 border-0 resize-none"
                         style={{ borderRadius: '0' }}
                       />
                     </div>
@@ -289,7 +289,7 @@ export default function Contact({
                     <Button 
                       type="submit" 
                       size="lg"
-                      className="w-full h-16 text-lg font-semibold bg-primary hover:bg-primary/90 hover:scale-105 transition-all duration-300 shadow-lg"
+                      className="w-full h-16 text-lg font-semibold bg-primary hover:bg-primary/90 transition-all duration-300"
                       style={{ borderRadius: '0' }}
                     >
                       <Send className="w-6 h-6 mr-3" />
@@ -311,7 +311,7 @@ export default function Contact({
               
               <div className="space-y-6">
                 {contactInfo.map((info, index) => (
-                  <Card key={info.title} className="shadow-xl hover:shadow-2xl transition-all duration-300">
+                  <Card key={info.title} className="border-0">
                     <CardContent className="p-12">
                       <div className="flex items-start space-x-4">
                         <div className="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center flex-shrink-0">
@@ -369,7 +369,7 @@ export default function Contact({
               transition={{ duration: 0.6, delay: index * 0.1 }}
               viewport={{ once: true }}
             >
-              <Card className="h-full hover:shadow-lg transition-all duration-300">
+              <Card className="h-full border-0">
                 <CardContent className="p-6">
                   <h3 className="text-lg font-semibold mb-3 text-primary">{type.name}</h3>
                   <p className="text-sm text-muted-foreground mb-4">{type.description}</p>
@@ -466,7 +466,7 @@ export default function Contact({
                 <Button
                   size="lg"
                   onClick={() => {}}
-                  className="bg-primary hover:bg-primary/90 text-white px-8 py-4 text-lg font-semibold hover:scale-105 transition-all duration-300 shadow-lg"
+                  className="bg-primary hover:bg-primary/90 text-white px-8 py-4 text-lg font-semibold transition-all duration-300"
                 >
                   <Calendar className="w-5 h-5 mr-2" />
                   Schedule Meeting
